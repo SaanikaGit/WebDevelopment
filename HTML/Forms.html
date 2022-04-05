@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+
+<body>
+    <h3>Sample form without any code attached to Submit button</h3>
+
+    <!-- ACTION triggers the logic when the form is submitted -->
+    <form action="SubmitCodeLogic.php">
+        <div>
+            Name : <input type="text" name="userName">
+        </div>
+        <br>
+        <div>
+            ID : <input type="number" name="userId">
+        </div>
+        <br>
+        <div>
+            Email : <input type="email" name="userEmail">
+        </div>
+        <br>
+        <div>
+            Date of Birth<input type="date" name="userDOB">
+        </div>
+        <br>
+        <div>
+            Married : <input type="checkbox" name="userMarried">
+        </div>
+        <br>
+        <div>
+            Gender : Male <input type="radio" name="userGender"> Female <input type="radio" name="userGender" id="">
+        </div>
+        <br>
+        <div>
+            Additional information about you : <br><textarea name="userAbout" id="" cols="30" rows="10"></textarea>
+        </div>
+        <br>
+        <div>
+            Resume : <input type="file" name="userResume" >
+        </div>
+        <br>
+        <div>
+            <label for="reference">How did you hear about us?</label>
+            <select name="userReference" id="reference">
+                <option value="FB">Facebook</option>
+                <option value="Insta">Instagram</option>
+                <option value="Newspaper">Newspaper</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            Reset: <input type="reset" value="Reset Values">
+        </div>
+        <br>
+        <div>
+            Submit <input type="submit" value="Submit Data"> </div>
+        <br>
+    </form>
+</body>
+
+</html>

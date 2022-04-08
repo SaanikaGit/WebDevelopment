@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors </title>
+    <style>
+        /* Element Selector */
+        p{
+            color: rgb(60, 0, 255);
+            background-color: rgb(237, 183, 163);
+        }
+        /* ID Selector */
+        #elementBlack{
+            color: black;
+        }
+        #elementRed{
+            color: rgb(233, 71, 71);
+        }
+        /* CLASS selector */
+        .bgRed{
+            background-color: rgb(233, 82, 82);
+        }
+        .bgGreen{
+            background-color: rgb(97, 231, 99);
+        }
+        .elementGreen{
+            color: rgb(11, 242, 11);
+        }
+        /* GROUP Selector */
+        footer, span{
+            color: #FFFFFF;
+            background-color: #32B72A;
+            border: 2px solid red;
+            font-style: italic;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <h3>CSS selectors - 4 Types</h3>
+    <ol type="1">
+        <li>CSS Element Selector</li>
+        <li>CSS ID Selector</li>
+        <li>CSS CLASS Selector</li>
+        <li>CSS GROUP Selector</li>
+    </ol>
+    <p>First Line : Formatted using Element Selector</p>
+    <p id="elementRed">Second Line : Formatted using ID Selector</p>
+    <p class="elementGreen bgRed">Third Line : Formatted using CLASS Selector</p>
+    <p id="elementBlack" class="bgGreen">Forth Line : Formatted using ID & CLASS Selector</p><br>
+    <span>Fifth Line : This is a span formatted using GROUP selector</span>
+    <footer >Sixth Line : This is a Footer formatted using GROUP selector</footer>
+<br>
+    <p>on CHrome. Right click on page and select INSPECT. This allows you to change the local browser HTML file and try out different things</p>
+</body>
+</html>

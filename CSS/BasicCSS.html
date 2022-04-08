@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic CSS</title>
+    <style>
+        p {
+            color: blue;
+            background-color: darksalmon ;
+            /* background-color: darksalmon !important; */
+        }
+    </style>
+    <link rel="stylesheet" href="BasicCSS.css">
+</head>
+
+<body>
+    <h2>CSS</h2>
+    CSS is of three types
+    <ol type="A">
+        <li>Inline CSS - where each item is styled individually, in the tag definition</li>
+        <ul>
+            <li>This can lead to messy code and needs to be avoided</li>
+            <li> <strong>NOTE : Inline CSS gets priority over Internal CSS</strong></li>
+        </ul>
+        <li>Internal CSS - where CSS is defined in the HEAD tag</li>
+        <ul>
+            <li>This will increase the size of the HTML ( header section)</li>
+        </ul>
+        <li>External CSS - CSS is defined in an external .css file and included</li>
+        <ul>
+            <li> Neat soluton if there is a lot of styling</li>
+            <li>Style sheet can be resued across several .HTML files</li>
+        </ul>
+    </ol>
+    <p style="color: red; background-color: aqua;">
+        This is example of styling with Inline CSS
+    </p>
+    <p>
+        This is example of styling with Internal and External CSS. <br><strong> If same TAGS are defined in both places,
+            the last tag definition encountered is used.</strong><br>
+        We can ensure that a particular property cannto be changed by sheets included later by adding the tag
+        "!important" to individual items
+    </p>
+</body>
+
+</html>

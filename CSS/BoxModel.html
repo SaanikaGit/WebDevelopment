@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Model</title>
+    <style>
+        /* This styling is applicable to all elements. Individual elements can override these  */
+        *{
+            /* Box resizes as the padding of margin increase or decrease; */
+            box-sizing: border-box;
+            background-color: rgb(192, 206, 241);
+        }
+        #boxModel{
+            height: 300px;
+            width: 450px;
+            border: 2px solid black;
+            background-image: url('boxmodel.jpg');
+            background-repeat: no-repeat;
+        }
+        .container{
+            border: 2px solid black;
+            width: 600px;
+            border-radius: 20px;
+        }
+        .testPadding{
+            padding: 10px;
+        }
+        .testMargin{
+            margin: 20px;
+        }
+    </style> 
+</head>
+<body>
+    <h2>Box Model</h2>
+    <p id="boxModel">.</p><br>
+    <div  class="container">
+        <h3>Heading #1</h3>
+        <p>Standard text with no styling</p>
+    </div>
+ 
+    <div class="container testPadding">
+        <h3>Heading #2</h3>
+        <p>Text with only padding. By default padding is done from all 4 directions, but we can pad only selected ( right/left/top/bottm) as well</p>
+    </div>
+ 
+    <div class="container testMargin">
+        <h3>Heading #3</h3>
+        <p>Text with only margin defined. By default margins command creates a margin for all 4 directions, but we can pad only selected ( right/left/top/bottm) as well</p>
+    </div>
+ 
+    <div class="container testPadding testMargin">
+        <h3>Heading #4</h3>
+        <p>Text with both padding and margin defined</p>
+    </div>
+ 
+</body>
+</html>

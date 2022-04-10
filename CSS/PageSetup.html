@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Setup</title>
+    <style>
+        .container {
+            border: 3px solid black;
+            width: 800px;
+            /* margin is given as Y-cord and X-cord. It either is AUTO it takes it as CENTER */
+            margin: 12px auto;
+        }
+
+        .items {
+            border: 2px solid blue;
+            margin: 12px 5px;
+            padding: 12px 3px;
+            background-color: rgb(188, 236, 240);
+        }
+
+        #storeItem1 {
+            /* WIDTH oppucpies 47% of available WIDTH */
+            width: 47%;
+            /* THIS item floats towards the left */
+            float: left;
+        }
+
+        #storeItem2 {
+            width: 47%;
+            float: right;
+        }
+
+        #storeItem3 {
+            /* CLEAR : Any FLOATING ITEMS above ( LEFT or RIGHT if BOTH is specicfied) will be clear of THIS item if they expand/contract  */
+            clear: both;
+            /* float: left; */
+        }
+
+        .para {
+            text-align: justify;
+        }
+
+        h1 {
+            text-align: justify;
+        }
+        .btn{
+            background-color: yellow;
+            padding: 10px;
+            margin: auto;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+        a:hover{
+            background-color: rgb(203, 146, 146);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>This is my store</h1>
+        <div id="storeItem1" class="items">
+            <h3>Store Item1</h3>
+            <p id="para1" class="para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ipsam beatae aliquam sint error ab tempora
+                eos eaque repellat nihil facilis hic! Eum ab laboriosam qui officiis ratione earum harum! Lorem ipsum
+                dolor sit amet consectetur adipisicing elit. Ex repellendus illo voluptates quae, commodi illum quas
+                similique et, natus at, id laboriosam minima. Culpa placeat mollitia molestias eaque alias! Iste.
+            </p>
+        </div>
+        <div id="storeItem2" class="items">
+            <h3>Store Item2</h3>
+            <p id="para2" class="para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ipsam beatae aliquam sint error ab tempora
+                eos eaque repellat nihil facilis hic! Eum ab laboriosam qui officiis ratione earum harum!
+            </p>
+        </div>
+        <div id="storeItem3" class="items">
+            <h3>Store Item3</h3>
+            <p id="para3" class="para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ipsam beatae aliquam sint error ab tempora
+                eos eaque repellat nihil facilis hic! Eum ab laboriosam qui officiis ratione earum harum!
+            </p>
+        </div>
+        <a href="https://www.google.com" class="btn">Read More</a>
+        <button class="btn">Contact Us</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+.boxType1{
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 10px 10px;
+}
+
+#justAdded{
+    background-color: bisque;
+}
+
+#freeBooksAndNotes{
+    background-color: cadetblue;
+}
+
+#neverUsedBefore{
+    background-color: darkkhaki;
+}
+
+.leftOfNav{
+    display: inline-block;
+    /* border: 2px solid black; */
+    float: left;
+    margin: 10px;
+}
+
+.midMainNav{
+    display: inline-block;
+    margin: 3px auto;
+    /* border: 1px solid black; */
+    clear: both;
+}
+
+.midMainNav ul{
+    overflow: auto;
+}
+
+.midMainNav li{
+    float: left;
+    list-style: none;
+    text-decoration: none;
+    margin: 10px 15px;
+}
+
+.midMainNav li a{
+    text-decoration: none;
+}
+
+.midMainNav li a:hover{
+    color: red;
+}
+
+.rightOfNav{
+    display: inline-block;
+    /* border: 2 px solid black; */
+    float: right;
+    margin: 10px auto;
+}

@@ -17,33 +17,18 @@
     background-color: darkkhaki;
 }
 
-.navBar{
-    border: 2px solid black;
-    display: inline-block;
-    margin: 10px;
-    display: flex;
-    justify-content: space-between;
-}
 .leftOfNav{
-    /* border: 2px solid black; */
+    display: inline-block;
+    border: 2px solid black;
     float: left;
     margin: 10px;
 }
 
 .midMainNav{
-    /* display: inline-block; */
-    /* display: flex; */
-    margin: 10px;
-    /* border: 1px solid black; */
+    display: inline-block;
+    margin: 3px auto;
+    border: 1px solid black;
     clear: both;
-    justify-content: center;
-}
-
-.rightOfNav{
-    /* display: inline-block; */
-    border: 2 px solid black;
-    float: right;
-    margin: 10px;
 }
 
 .midMainNav ul{
@@ -65,4 +50,9 @@
     color: red;
 }
 
-
+.rightOfNav{
+    /* display: inline-block; */
+    border: 2 px solid black;
+    float: right;
+    /* margin: 10px auto; */
+}

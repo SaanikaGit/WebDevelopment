@@ -1,48 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test1 - Index</title>
+    <title>Test1 - Main Page</title>
     <link rel="stylesheet" href="CSS/index.css">
 </head>
+
 <body>
     <header>
-        <!-- Left Part of top Nav Bar containing the CICRCLE logo -->
-        <div class="leftOfNav">
-            <img src="IMG/CircleLogo.jpg" alt="">
-        </div>
+        <nav class="navBar">
+            <!-- Left Part of top Nav Bar containing the CICRCLE logo -->
+            <div class="leftOfNav">
+                <img src="IMG/CircleLogo.jpg" alt="">
+            </div>
 
-        <!-- MIddle part of top nav bar that has actual page navigation -->
-        <nav class="midMainNav">
-            <ul>
-                <li><a href="#">ABOUT US</a></li>
-                <li><a href="#">TEXTBOOKS</a></li>
-                <li><a href="#">NOTES</a></li>
-                <li><a href="#">CALCULATORS</a></li>
-                <li><a href="#">CONTACT US</a></li>
-            </ul>
+            <!-- MIddle part of top nav bar that has actual page navigation -->
+            <div class="midMainNav">
+                <ul>
+                    <li><a href="#">TEXTBOOKS</a></li>
+                    <li><a href="#">NOTES</a></li>
+                    <li><a href="#">CALCULATORS</a></li>
+                    <li><a href="#">ABOUT US</a></li>
+                    <li><a href="#">CONTACT US</a></li>
+                </ul>
+            </div>
+
+            <!-- RIght part of top nav bar that has login and FAQ -->
+            <div class="rightOfNav">
+                <input type="text" name="Search" id="navSearch" placeholder="Search CIRCLE">
+                <img src="IMG/outline_person_black_48dp.png" alt="">
+                <img src="IMG/outline_help_outline_black_48dp.png" alt="">
+            </div>
         </nav>
-
-        <!-- RIght part of top nav bar that has login and FAQ -->
-        <div class="rightOfNav">
-            <input type="text" name="Search" id="navSearch" placeholder="Search CIRCLE">
-            <img src="IMG/outline_person_black_48dp.png" alt="">
-            <img src="IMG/outline_help_outline_black_48dp.png" alt="">
-        </div>
     </header>
-    <div class="boxType1" id="justAdded">
-        <h3>Just Added</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe aliquam mollitia perferendis suscipit repellat tenetur commodi a velit doloribus, asperiores, odit ab ratione quasi dolor dicta. Optio facere eligendi incidunt.</p>
+    <div class="boxSection" id="justAdded">
+        <h3 class=bodyBoxHeading>Just Added</h3>
+        <div class="boxIMG">
+            <img src="IMG/DP BM Lamat.jpg" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP</li>
+                <li>Subject : Business Management</li>
+                <li>Author: Lamat</li>
+                <li>No. of Vendors : 3</li>
+            </ul>
+        </div>
+        <div class="boxIMG">
+            <img src="IMG/DP Physics Homer.jpg" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP</li>
+                <li>Subject : Physics</li>
+                <li>Author: Homer</li>
+                <li>No. of Vendors : 2</li>
+            </ul>
+        </div>
+        <div class="boxIMG">
+            <img src="IMG/CALC CASIO fx-CG50.png" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP</li>
+                <li>Subject : GDC</li>
+                <li>Model: fx-CG50</li>
+                <li>No. of Vendors : 1</li>
+            </ul>
+        </div>
     </div>
-    <div class="boxType1" id="freeBooksAndNotes">
-        <h3>Free Books & Notes</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe aliquam mollitia perferendis suscipit repellat tenetur commodi a velit doloribus, asperiores, odit ab ratione quasi dolor dicta. Optio facere eligendi incidunt.</p>
+<br>
+    <div class="boxSection" id="freeBooksAndNotes">
+        <h3 class=bodyBoxHeading>Free Books & Notes</h3>
+        <div class="boxIMG">
+            <img src="IMG/MYP45 Chem Termaat.jpg" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP</li>
+                <li>Subject : Chemistry</li>
+                <li>Author: Termaat</li>
+                <li>No. of Vendors : 1</li>
+            </ul>
+        </div>
+        <div class="boxIMG">
+            <img src="IMG/DP MathNotes Saanika.jpg" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP1</li>
+                <li>Subject : Maths Notes</li>
+                <li>Author: Student</li>
+                <li>No. of Vendors : 2</li>
+            </ul>
+        </div>
     </div>
-    <div class="boxType1" id="neverUsedBefore">
-        <h3>Never Used Before</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe aliquam mollitia perferendis suscipit repellat tenetur commodi a velit doloribus, asperiores, odit ab ratione quasi dolor dicta. Optio facere eligendi incidunt.</p>
+    <br>
+    <div class="boxSection" id="neverUsedBefore">
+        <h3 class=bodyBoxHeading>NeverUserBefore</h3>
+        <div class="boxIMG">
+            <img src="IMG/DP Psychology Crane.jpg" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP</li>
+                <li>Subject : Psychlogy</li>
+                <li>Author: Crane</li>
+                <li>No. of Vendors : 1</li>
+            </ul>
+        </div>
+        <div class="boxIMG">
+            <img src="IMG/MYP1 INS Grace.jpg" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : MYP1</li>
+                <li>Subject : INS</li>
+                <li>Author: Grace</li>
+                <li>No. of Vendors : 2</li>
+
+            </ul>
+        </div>
+        <div class="boxIMG">
+            <img src="IMG/DP Biology Alan.png.crdownload" alt="" class="imgFormat">
+            <ul class="bookDetails">
+                <li>Grade : DP</li>
+                <li>Subject : Biology</li>
+                <li>Author: Alan</li>
+                <li>No. of Vendors : 1</li>
+
+            </ul>
+        </div>
     </div>
 </body>
-</html>
+
+</html1

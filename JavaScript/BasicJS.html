@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Sript</title>
+</head>
+
+<body>
+    <!-- <h1>Normal Heading</h1> -->
+    <div id="content"></div>
+    <ul>
+        <div class="myclass"></div>
+        <div class="myclass"></div>
+        <div class="myclass"></div>
+    </ul>
+    <footer id="myfooter">footer</footer>
+
+    <script>
+        // Query DOM by ID
+        document.getElementById('content').innerHTML = '<h1>This is a dynamic heading</h1>'
+        let i = document.getElementsByClassName('myclass').length;
+        console.log(i);
+
+        // alert
+        alert("Userdefined content");
+
+        // prompt
+        let userName = prompt("Enter your name", "Guest");
+        console.log(userName);
+
+        // confirm
+        loadPage = confirm(userName + "\n Do you agree to our Random Terms and Conditions?")
+
+        // Query DOM by CLass - can return multiple elements
+        if (loadPage) {
+            for (let ctr = 0; ctr < i; ctr++) {
+                console.log('co<unter= ' + ctr);
+                new_heading = '<li><h' + (ctr + 2) + '>' + userName + ', this is a small dynamic heading number</h' + (ctr + 2) + '></li>';
+                document.getElementsByClassName('myclass')[ctr].innerHTML = new_heading;
+            }
+        }
+
+        // Query DOM using CSS selectors. This returns first match. Use "querySelectorAll" to return all matches
+        myFooter = document.querySelector( 'footer');
+        console.log(myFooter);
+        myFooter.innerHTML = 'This is a Footer';
+
+        let places = ["JK", "HP","TN"];
+        places.forEach(function f(element){
+            console.log("We have been to " + element)
+        })
+
+        for( element of places){
+            console.log("Enjoyed " + element)
+        }
+
+        student={
+            name: 'Saanika',
+            rollNo: 16,
+            grade: 'DP1'
+        }
+        for( key in student){
+            console.log( `Value of ${key} for student is ${student[key]}`)
+        }
+    </script>
+</body>
+
+</html>

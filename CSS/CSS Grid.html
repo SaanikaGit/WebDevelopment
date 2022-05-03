@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid</title>
+    <style>
+        .container1 {
+            display: grid;
+            /* FR units is fractions of total available width */
+            grid-template-columns: 2fr 3fr 2fr;
+            grid-template-columns: 300px auto 200px;
+            grid-template-columns: repeat(3, 2fr);
+            grid-gap: 7px;
+        }
+
+        .box1 {
+            background-color: rgb(204, 242, 242);
+            border: 2px solid black;
+            padding: 5px 5px;
+            /* margin: 2px; */
+            /* margin: 2px; */
+        }
+
+        .container2 {
+            display: grid;
+            grid-template-rows: 1fr 4fr 1fr;
+            grid-auto-rows: 2fr;
+            grid-gap: 7px;
+            grid-template-columns: 2fr 4fr;
+        }
+
+        .box2 {
+            background-color: aquamarine;
+            border: 2px solid black;
+            padding: 5px 5px;
+        }
+
+        .container3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: repeat(4, 1fr);
+            grid-column-gap: 2rem;
+            grid-row-gap: 2rem;
+        }
+
+        .box3 {
+            background-color: bisque;
+            border: 2px solid black;
+            padding: 5px 5px;
+        }
+
+        .box3:first-child {
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 3;
+        }
+
+        .container4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-column-gap: 10px;
+            grid-row-gap: 2rem;
+        }
+
+        .box4 {
+            background-color: rgb(210, 245, 157);
+            border: 2px solid black;
+            padding: 5px 5px;
+        }
+
+        .container5{
+            display: grid;
+            grid-gap: 1rem;
+            /* in the below example we have created 4 columns and 4 rows. 
+            repeating names take up propotional space */
+            grid-template-areas: 
+            'navbar navbar navbar navbar'
+            'section section section aside'
+            'section1 section1 section2 section2'
+            'footnote footnote footnote footnote';
+        }
+        .item5{
+            background-color: rgb(230, 167, 90);
+            border: 2px solid black;
+            padding: 10px 15px;
+        }
+
+        .container6{
+            display: grid;
+            grid-gap: 1rem;
+            /* in the below example we have created 4 columns and 4 rows. 
+            repeating names take up propotional space */
+            grid-template-areas: 
+            'navbar navbar navbar navbar'
+            'section section section aside'
+            'section1 section1 section2 section2'
+            'footnote footnote footnote footnote';
+        }
+
+        @media only screen and (max-width:480px){
+            .container6{
+                background-color: cyan;
+                grid-template-areas: 
+            'navbar navbar navbar navbar'
+            'section section section section'
+            'aside aside aside aside'
+            'section1 section1 section1 section1'
+            'section2 section2 section2 section2'
+            'footnote footnote footnote footnote';
+            }
+            .media::before{
+                font-weight: bold;
+                content:"Mobile";
+            }
+            span{
+                display: block;
+                text-align: center;
+            }
+        }
+
+        @media only screen and (min-width: 480px) and (max-width:768px) {
+            .container6{
+                background-color: blueviolet;
+                grid-template-areas: 
+            'navbar navbar navbar navbar'
+            'section section section aside'
+            'section1 section1 section1 section1'
+            'section2 section2 section2 section2'
+            'footnote footnote footnote footnote';
+            }
+            .media::before{
+                font-weight: bold;
+                content:"Tablet";
+            }
+            span{
+                display: block;
+                text-align: center;
+            }
+
+        }
+
+        @media (min-width: 768px) and (max-width:1050px) {
+            .container6{
+                background-color: yellow;
+            }
+            .media::before{
+                font-weight: bold;
+                content:"Computer";
+            }
+        }
+
+        @media (min-width: 1050px)  {
+            .container6{
+                background-color: green;
+            }
+            .media::before{
+                font-weight: bold;
+                content:"Wide Screen";
+            }
+        }
+
+        #navbar{
+            grid-area: navbar;
+        }
+        #section{
+            grid-area: section;
+        }
+        #aside{
+            grid-area: aside;
+        }
+        #section1{
+            grid-area: section1;
+        }
+        #section2{
+            grid-area: section2;
+        }
+        #footnote{
+            grid-area: footnote;
+        }
+        
+    </style>
+</head>
+
+
+<body>
+    <h3>Reguar Grid - Arranging Columns</h3>
+    <div class="container1">
+        <div class="box1">This is item #3</div>
+        <div class="box1">This is item #2</div>
+        <div class="box1">This is item #1</div>
+        <div class="box1">This is item #4</div>
+        <div class="box1">This is item #5</div>
+        <div class="box1">This is item #6</div>
+    </div>
+    <hr>
+    
+    <h3>Reguar Grid - Arranging Rows</h3>
+    <div class="container2">
+        <div class="box2">This is Box #1</div>
+        <div class="box2">This is Box #2</div>
+        <div class="box2">This is Box #3</div>
+        <div class="box2">This is Box #4</div>
+        <div class="box2">This is Box #5</div>
+        <div class="box2">This is Box #6</div>
+    </div>
+    <hr>
+    
+    <h3>Span Grid - items spanning rows and columns</h3>
+    <div class="container3">
+        <div class="box3">This is box#1</div>
+        <div class="box3">This is box#2</div>
+        <div class="box3">This is box#3</div>
+        <div class="box3">This is box#4</div>
+        <div class="box3">This is box#5</div>
+        <div class="box3">This is box#6</div>
+        <div class="box3">This is box#7</div>
+        <div class="box3">This is box#8</div>
+        <div class="box3">This is box#9</div>
+        <div class="box3">This is box#10</div>
+        <div class="box3">This is box#11</div>
+        <div class="box3">This is box#12</div>
+        <div class="box3">This is box#12</div>
+        <div class="box3">This is box#13</div>
+    </div>
+    <hr>
+    
+    <h3>Responsive Grid - Small screen becomes single column</h3>
+    <div class="container4">
+        <div class="box4">This is box#1</div>
+        <div class="box4">This is box#2</div>
+        <div class="box4">This is box#3</div>
+        <div class="box4">This is box#4</div>
+        <div class="box4">This is box#5</div>
+        <div class="box4">This is box#6</div>
+        <div class="box4">This is box#7</div>
+        <div class="box4">This is box#8</div>
+        <div class="box4">This is box#9</div>
+        <div class="box4">This is box#10</div>
+        <div class="box4">This is box#11</div>
+        <div class="box4">This is box#12</div>
+    </div>
+    <hr>
+
+    <h3>Using Template Area</h3>
+    <div class="container5">
+        <div id="navbar" class="item5">
+            Home About Contact Help
+        </div>
+        <div id="section" class="item5">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae explicabo provident enim cupiditate saepe cumque ipsam aliquam consectetur excepturi esse distinctio reprehenderit, deleniti atque deserunt fuga nemo, itaque assumenda odio, numquam nulla dignissimos similique nostrum facere. Dolores, aspernatur ipsam tenetur distinctio atque vitae sequi. Nobis iste error optio sed ipsum aperiam veritatis ratione, sunt animi at saepe fuga ex dolor sapiente vel recusandae libero labore doloremque et a exercitationem quod velit corporis. Non veniam saepe modi vel. Dolor sunt, repellat, fugiat sint ullam quaerat illum consectetur aut delectus dolore vel facere. Eveniet, laboriosam. Ipsa modi alias, nemo ducimus optio ullam!
+         </div>
+         <div id="aside" class="item5">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda libero tempore molestias eveniet iusto impedit, laboriosam deleniti! Similique odit libero autem, dicta nemo soluta eligendi voluptas consectetur aut asperiores ipsa exercitationem hic quia explicabo illo corporis facilis enim, debitis temporibus, doloremque ipsam. Natus quis dicta dignissimos laborum corrupti dolore doloremque?
+         </div>
+         <div id="section1" class="item5">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt temporibus, reprehenderit architecto cum nobis nesciunt voluptatibus quisquam voluptatum facere odio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, eos!
+         </div>
+         <div id="section2" class="item5">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolores quos similique sunt fugiat ex! Sunt tempora expedita pariatur voluptate.Repellat, eos!
+         </div>
+         <div id="footnote" class="item5">
+             This is a footer
+         </div>
+    </div>
+    <hr>
+
+    <h3>Using Template Area : Responsive. Form Factor - <span class="media">.</span></h3>
+    <div class="container6">
+        <div id="navbar" class="item5">
+            <span>Home</span>
+            <span>About</span>
+            <span>Contact</span>
+            <span>Help</span>
+        </div>
+        <div id="section" class="item5">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae explicabo provident enim cupiditate saepe cumque ipsam aliquam consectetur excepturi esse distinctio reprehenderit, deleniti atque deserunt fuga nemo, itaque assumenda odio, numquam nulla dignissimos similique nostrum facere. Dolores, aspernatur ipsam tenetur distinctio atque vitae sequi. Nobis iste error optio sed ipsum aperiam veritatis ratione, sunt animi at saepe fuga ex dolor sapiente vel recusandae libero labore doloremque et a exercitationem quod velit corporis. Non veniam saepe modi vel. Dolor sunt, repellat, fugiat sint ullam quaerat illum consectetur aut delectus dolore vel facere. Eveniet, laboriosam. Ipsa modi alias, nemo ducimus optio ullam!
+         </div>
+         <div id="aside" class="item5">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda libero tempore molestias eveniet iusto impedit, laboriosam deleniti! Similique odit libero autem, dicta nemo soluta eligendi voluptas consectetur aut asperiores ipsa exercitationem hic quia explicabo illo corporis facilis enim, debitis temporibus, doloremque ipsam. Natus quis dicta dignissimos laborum corrupti dolore doloremque?
+         </div>
+         <div id="section1" class="item5">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt temporibus, reprehenderit architecto cum nobis nesciunt voluptatibus quisquam voluptatum facere odio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, eos!
+         </div>
+         <div id="section2" class="item5">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolores quos similique sunt fugiat ex! Sunt tempora expedita pariatur voluptate.Repellat, eos!
+         </div>
+         <div id="footnote" class="item5">
+             This is a footer
+         </div>
+    </div>
+    <hr>
+
+
+</body>
+
+</html>

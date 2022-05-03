@@ -1,0 +1,53 @@
+//- index.pug
+doctype html
+html
+  head
+    style
+      include ../public/style.css
+  body
+    nav#navbar
+        ul
+            div#logo 
+              img( src="/images/DanceLogo.png")
+            li #[a(href="/") HOME]
+            li #[a(href="/") ABOUT]
+            li #[a(href="/") SERVICES] 
+            li #[a(href="/") CLASS INFO]
+            li #[a(href="/") CONATCT US]
+    section#introSection 
+        div Welcome to Dance Academy 
+        div.small Come alive with Dance 
+    section#MissionSection 
+        h2 Promoted Dance Styles 
+        div.card 
+          h3 Classical 
+            div.card-box 
+              div.card-img 
+                img( src="/images/Classical.jpg")
+              div.card-content
+                p It's called classical for a reason
+        div.card 
+          h3 Break Dance 
+            div.card-box 
+              div.card-img 
+                img( src="/images/Break.jpg")
+              div.card-content
+                p Take a break from hectic life
+        div.card 
+          h3 Zumba 
+            div.card-box 
+              div.card-img 
+                img( src="/images/Zumba.jpg")
+              div.card-content
+                p Dance your way to health
+    section#SponsorSection 
+        h2 Our Sponsors 
+        div#sponsors 
+          img(src="/images/logo1.png", alt="Apple Logo", class="spImage")
+          img(src="/images/logo2.png", alt="MS Logo", class="spImage")
+          img(src="/images/logo3.png", alt="HP Logo", class="spImage")
+          img(src="/images/logo4.png", alt="Skype Logo", class="spImage")
+    footer#footer 
+        | Copyright © 2022 SansDanceAcademy
+    script
+      include ../public/index.js

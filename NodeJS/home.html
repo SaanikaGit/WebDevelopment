@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serving FIles</title>
+    <link rel="icon" type="image/png" href="./favicon.ico">
+
+    <style>
+        #navBar {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            font-family: cursive;
+            position: sticky;
+        }
+
+        /* Box behind Nav Bar */
+        #navBar::before {
+            content: "";
+            background-color: black;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* NavBar Logo and Image */
+        #navLogo {
+            margin: 10px 15px;
+        }
+
+        #navLogo img {
+            margin: 5px 8px;
+            height: 45px;
+        }
+
+        /* NavBar : List Styling */
+        #navBar ul {
+            display: flex;
+        }
+
+        #navBar ul li {
+            list-style: none;
+
+        }
+
+        #navBar ul li a {
+            color: white;
+            padding: 3px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+
+        }
+
+        #navBar ul li a:hover {
+            color: black;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navBar">
+        <ul>
+            <li class="navListItem"><a href="/home">Home</a></li>
+            <li class="navListItem"><a href="/servicesSection">Services</a></li>
+            <li class="navListItem"><a href="/clientSection">Our Clients</a></li>
+            <li class="navListItem"><a href="contactSection">Contact us</a></li>
+        </ul>
+    </nav>
+
+    <h1>HOME PAGE</h1>
+
+    <footer>
+        <div class="textCenter">
+            Copyright &copy; All right reserved.
+        </div>
+    </footer>
+</body>
+
+</html>

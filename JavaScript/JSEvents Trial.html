@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Events</title>
+
+</head>
+
+<body>
+    <h1>JS Events</h1>
+    <p id="hideMe">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut id aliquid tenetur sequi distinctio
+        aspernatur tempore quas similique consectetur totam doloremque expedita, voluptas reiciendis perspiciatis, animi
+        eius dolorum repellat maiores alias necessitatibus amet aliquam pariatur nisi inventore. Est, fugiat adipisci
+        sit, tenetur mollitia suscipit veritatis magni atque nihil explicabo eos dolore! Voluptatum laborum suscipit
+        officia aliquid iure. Officiis tenetur odit unde. Incidunt itaque nostrum, impedit molestiae animi possimus non.
+        Illum sed atque perspiciatis, culpa explicabo, suscipit repudiandae exercitationem a consequatur aliquid aliquam
+        soluta ut molestias consequuntur! Deserunt, possimus iure et suscipit incidunt laboriosam perspiciatis accusamus
+        dignissimos error aliquam magnam. Corrupti, repudiandae reprehenderit laudantium possimus in non explicabo? Sit
+        labore, cum est exercitationem minus illum iure id facilis omnis obcaecati magnam officiis neque adipisci soluta
+        aspernatur, ab quibusdam autem et libero itaque, mollitia rerum quaerat? Nesciunt, minus voluptatibus error
+        magni amet ratione doloribus eos! Perferendis eius, quibusdam reiciendis culpa voluptatibus sed totam ea
+        repellat rem quam. Debitis nihil, maxime, odio laboriosam eos voluptatum commodi ipsum ab quibusdam asperiores
+        assumenda deserunt molestiae dicta architecto cum reiciendis quas porro tenetur. Ipsam distinctio blanditiis eos
+        et placeat assumenda voluptatem, voluptas iste ex ipsa labore rem iusto nostrum at, similique itaque provident
+        accusantium. Perspiciatis, veritatis?</p>
+    <button id="btn" onclick="toggleHide()">Show/Hide paragraph</button>
+
+    <script>
+        function toggleHide() {
+            // let btnHandle = document.getElementById( 'btn');
+            let hideMeHandle = document.getElementById('hideMe');
+            console.log(hideMeHandle);
+            if (hideMeHandle.style.display != 'none') {
+                hideMeHandle.style.display = 'none';
+            }
+            else {
+                hideMeHandle.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>

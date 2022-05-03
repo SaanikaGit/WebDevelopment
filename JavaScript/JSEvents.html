@@ -1,0 +1,100 @@
+6<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Events</title>
+</head>
+<style>
+    .btn {
+        border: 2px solid black;
+        border-radius: 8px;
+        font-style: bold;
+        cursor: pointer;
+    }
+
+    #btnPurple {
+        background-color: rgb(182, 63, 246);
+    }
+
+    #btnRed {
+        background-color: red;
+    }
+
+    #btnGreen {
+        background-color: rgb(83, 218, 83);
+    }
+
+    #btnYellow {
+        background-color: yellow;
+    }
+
+    .FBLogoClass {
+        height: 300px;
+        /* width: 150px; */
+
+    }
+</style>
+
+<body>
+    <h1>JS Events. </h1>
+     <p>
+         Current time is :<span id="time"></span>
+     </p> 
+    <h2>Testing OnCLick</h2>
+
+    <button id="btnPurple" class="btn" onclick="changeFBCol(1)">Purple</button>
+    <button id="btnRed" class="btn" onclick="changeFBCol(2)">Red</button>
+    <button id="btnYellow" class="btn" onclick="changeFBCol(3)">Yellow</button>
+    <button id="btnGreen" class="btn" onclick="changeFBCol(4)">Green</button>
+    <button id="btnHide" class="btn" onclick="changeFBCol(5)">Show/Hide</button>
+    <hr>
+    <img id="FBLogo" class="FBLogoClass" src="IMG/FB-Blue.jpg" alt="facebook">
+    <hr>
+    <script>
+        function changeFBCol(col) {
+            // let btnHandle = document.getElementById( 'btn');
+            let FBlogoHandle = document.getElementById('FBLogo');
+            console.log(FBlogoHandle);
+            switch (col) {
+                case 1:
+                    FBlogoHandle.src = "IMG/FB-Blue.jpg";
+                    break;
+                case 2:
+                    FBlogoHandle.src = "IMG/FB-Red.jpg";    
+                    break;
+                case 3:
+                    FBlogoHandle.src = "IMG/FB-Yellow.jpg";
+                    break;
+                case 4:
+                    FBlogoHandle.src = "IMG/FB-Green.jpg"
+                    break;
+                case 5:
+                    if (FBlogoHandle.style.display != 'none') {
+                        FBlogoHandle.style.display = 'none';
+                    }
+                    else {
+                        FBlogoHandle.style.display = 'block';
+                    }
+                    break;
+                default:
+                    FBlogoHandle.src = "IMG/FB-Blue.jpg"
+                    break;
+            }
+        }
+
+        // Single Timed Event
+        setTimeout(alert, 3000, "You need more than this much time to click a button?????");
+
+        // Display Time - recurring Event
+        function displayTime(){
+            time = new Date();
+            document.getElementById( 'time').innerHTML = time;
+        }
+        setInterval(displayTime, 1000);
+    </script>
+</body>
+
+</html>

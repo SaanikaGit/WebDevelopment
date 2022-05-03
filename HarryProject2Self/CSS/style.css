@@ -1,0 +1,220 @@
+/* CSS Reset */
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+/* CSS Variables */
+:root{
+    --navBarHeight: 59px;
+}
+
+/* Navigation Bar */
+#navBar{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    font-family: cursive;
+    position: sticky;
+}
+
+/* Box behind Nav Bar */
+#navBar::before{
+    content: "";
+    background-color: black;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: 0.4;
+}
+/* NavBar Logo and Image */
+#navLogo{
+    margin: 10px 15px;
+}
+#navLogo img{
+    margin: 5px 8px;
+    height: 45px;
+}
+
+/* NavBar : List Styling */
+#navBar ul{
+    display: flex;
+}
+
+#navBar ul li{
+    list-style: none;
+
+}
+
+#navBar ul li a{
+    color: white;
+    padding: 3px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+
+}
+#navBar ul li a:hover{
+    color: black;
+    background-color: white;
+}
+
+/* Home Section */
+#home{
+    display: flex;
+    flex-direction: column;
+    padding: 3px 200px;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+}
+
+#home::before{
+    content: "";
+    background: url('../IMG/foodBG.jpg') no-repeat  ;
+    position: absolute;
+    height: 700px;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Generic Classes */
+.mainHeading{
+    font-size: 3rem;
+    padding: 12px;
+
+}
+.secondaryHeading{
+    font-size: 2rem;
+    padding: 12px;
+}
+.button{
+    padding: 6px 20px;
+    margin: 15px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: brown;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.textCenter{
+    text-align: center;
+}
+
+/* Styling main section */
+#home h1{
+    color: white;
+    text-align: center;
+}
+#home p{
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* styling services section */
+#services{
+    margin: 15px;
+    display: flex;
+}
+
+#services .box{
+    border: 2px solid brown;
+    border-radius: 23px;
+    padding: 10px;
+    margin: 5px 25px;
+    background-color: rgb(239, 226, 226);
+
+}
+#services .box img{
+    height: 150px;
+    margin: auto;
+    display: block;
+}
+
+/* Styling Clients section */
+.clients{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#clientSection{
+    position: relative;
+    /* height: 400px; */
+}
+
+#clientSection::before{
+    content: "";
+    background: url('../IMG/Cafe.jpg') no-repeat center center/cover ;
+    position: absolute;
+    /* height: 400px; */
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+.clientLogo{
+    padding: 30px;
+}
+.clients img{
+    height: 150px;
+    width: 150px;
+}
+
+/* Styling Conact Us section */
+#contactSection{
+    position: relative;
+    /* height: 300px; */
+}
+#contactSection::before{
+    content: "";
+    background: url('../IMG/ContactUs.jpg') no-repeat center center/cover ;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+#contactUs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+#contactSection input,
+#contactSection textarea{
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border-radius: 9px;
+}
+
+#contactSection form{
+    width: 40%;
+
+}
+#contactSection label{
+    font-size: 1.5rem;
+}
+/* styling footer */
+footer{
+    background: black;
+    color: white;
+    padding: 10px 20px;
+}

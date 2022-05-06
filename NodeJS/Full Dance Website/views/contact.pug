@@ -1,0 +1,17 @@
+extends base.pug  
+
+block style 
+    style
+      include ../public/contact.css
+
+block content 
+    h2 Contact Us
+      form( action="/contact", methos = "post", class="myForm")
+        input( type="text", class="myInput", name="name", placeholder="Enter your name")
+        input( type="phone", class="myInput", name="phone", placeholder="Enter your phone number")
+        input( type="email", class="myInput", name="email", placeholder="Enter your email address")
+        input( type="address", class="myInput", name="address", placeholder="Enter your address")
+        input( type="concern", class="myInput", name="concern", placeholder="Enter your concern / comments")
+        button( class="btn")
+          | Submit
+

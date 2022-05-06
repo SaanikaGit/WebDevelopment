@@ -1,0 +1,24 @@
+// Refer - https://pugjs.org/language/inheritance.html
+doctype html
+html
+  head
+    title Sans Dance Acedemy
+    block scripts
+    style 
+      include ../public/base.css
+    block style
+
+
+  body
+    nav#navbar
+        ul
+            div#logo 
+              img( src="/images/DanceLogo.png")
+            li #[a(href="/") HOME]
+            li #[a(href="/") ABOUT]
+            li #[a(href="/") SERVICES] 
+            li #[a(href="/") CLASS INFO]
+            li #[a(href="/contact") CONTACT US]
+    block content
+    footer#footer 
+        | Copyright © 2000-2022 SansDanceAcademy

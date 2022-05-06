@@ -1,20 +1,10 @@
-//- index.pug
-doctype html
-html
-  head
-    title My Dance Acedemy
+extends base.pug  
+
+block style 
     style
-      include ../public/style1.css
-  body
-    nav#navbar
-        ul
-            div#logo 
-              img( src="/images/DanceLogo.png")
-            li #[a(href="/") HOME]
-            li #[a(href="/") ABOUT]
-            li #[a(href="/") SERVICES] 
-            li #[a(href="/") CLASS INFO]
-            li #[a(href="/") CONTACT US]
+      include ../public/home.css
+
+block content 
     section#introSection 
         div Welcome to Dance Academy 
         div.small Come alive with Dance 
@@ -48,7 +38,4 @@ html
           img(src="/images/logo2.png", alt="MS Logo", class="spImage")
           img(src="/images/logo3.png", alt="HP Logo", class="spImage")
           img(src="/images/logo4.png", alt="Skype Logo", class="spImage")
-    footer#footer 
-        | Copyright © 2022 NiDanceAcademy
-    script
-      include ../public/index.js
+    

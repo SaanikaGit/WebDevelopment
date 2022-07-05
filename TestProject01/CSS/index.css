@@ -35,7 +35,7 @@
     background-color: bisque;
     transition-property: background-color;
     transition-duration: 5s;
-
+    
 }
 #justAdded:hover {
     background-color: rgb(235, 144, 33);

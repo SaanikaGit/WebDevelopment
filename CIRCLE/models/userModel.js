@@ -19,6 +19,8 @@ const userSchema = new mongoose.Schema({
     },
     nameSlug: {
         type: String,
+        trin : true,
+        default : this.name.replace( " ", "-"),
     },
     dateCreated: {
         type: Date,

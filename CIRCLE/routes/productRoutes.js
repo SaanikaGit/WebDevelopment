@@ -6,6 +6,10 @@ const router = express.Router();
 // Create an ALIAS TOP-5-CHEAP and use an additional middleware to populate the req string with data we want and then call getAllProduct...
 // .get(productController.getAllFree, productController.getAllProducts);
 
+
+// TO get all Products that a cendor has posted for selling... Do a "getAllProducts" with additional query string "vendors.vname=INPUT"
+
+
 router
     .route('/get-latest')
     .get(productController.getLatest);

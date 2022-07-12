@@ -36,7 +36,7 @@ exports.getAllProducts = async (req, res) => {
             query = query.sort(sortFields);
         } else {
             // Default sorting...
-            query = query.sort('-createdAt');
+            query = query.sort('name');
         }
 
         // 3 -> Output Field Limiting ( MOngoose needs a space delimited list )...
@@ -51,9 +51,11 @@ exports.getAllProducts = async (req, res) => {
 
         // 4 -> Pagination
         //Get what the user wants OR set defaults..
+        const NUM_ITEMS = process.env.NUM_ITEMS_TO_RETURN * 1;
+
         console.log(req.query.page, req.query.limit);
         const page = req.query.page * 1 || 1;
-        const limit = req.query.limit * 1 || 5;
+        const limit = req.query.limit * 1 || NUM_ITEMS;
         // Skip all documents till previous page...
         const skip = (page - 1) * limit;
 

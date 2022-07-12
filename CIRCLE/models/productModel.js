@@ -38,7 +38,10 @@ const productSchema = new mongoose.Schema({
             costPrice: Number,
             sellingPrice: Number,
             vendorImage: String,
-            listingDate: Date,
+            listingDate: {
+                type: Date,
+                default: Date.now(),
+            },
             requested: Boolean,
             sold: Boolean,
         },

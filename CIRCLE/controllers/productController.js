@@ -3,20 +3,6 @@
 
 const Product = require('../models/productModel');
 
-exports.aliasTop5Cheap = ( req, res, next) => {
-    req.query.limit = '5';
-    req.query.sort = '-ratingAverage,price';
-    req.query.fields = 'name,price,ratingAverage,summary,difficulty';
-    next();
-};
-
-exports.aliasLongest5Cheap = ( req, res, next) => {
-    req.query.limit = '5';
-    req.query.sort = '-duration,price';
-    req.query.fields = 'name,price,duration,summary,difficulty';
-    next();
-};
-
 exports.getAllProducts = async (req, res) => {
     try {
         console.log(req.query);
@@ -95,7 +81,7 @@ exports.getAllProducts = async (req, res) => {
         });
     } catch (err) {
         res.status(400).json({
-            status: 'failed',
+            status: 'failed in getting all products ',
             message: err,
         });
     }
@@ -113,7 +99,7 @@ exports.getProduct = async (req, res) => {
         });
     } catch (err) {
         res.status(400).json({
-            status: 'failed',
+            status: 'failed in getting product',
             message: err,
         });
     }
@@ -132,17 +118,66 @@ exports.createProduct = async (req, res) => {
     } catch (err) {
         res.status(400).json({
             status: 'failed',
-            message: 'Invalid Data Sent->' + err,
+            message: 'Invalid Create Data Sent->' + err,
+        });
+    }
+};
+
+exports.addProductVendor = async (req, res) => {
+    try {
+        // console.log('Add Product Vendoro called');
+        // console.log(req.params.id);
+        // console.log(req.body);
+        const product = await Product.findByIdAndUpdate(req.params.id, {
+            $push: { vendors: req.body },
+        });
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Product Vendor Added',
+            // data: {
+            //     product,
+            // },
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'failed',
+            message: 'Invalid add vendor Data Sent->' + err,
+        });
+    }
+};
+
+exports.dropProductVendor = async (req, res) => {
+    try {
+        console.log('Drop Product Vendoro called');
+        console.log(req.params.id);
+        console.log(req.params.delId);
+        const product = await Product.findByIdAndUpdate(req.params.id, {
+            $pull: { vendors: { _id: req.params.delId } },
+        });
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Product Vendor Dropped',
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'failed',
+            message: 'Invalid DROP Data Sent->' + err,
         });
     }
 };
 
 exports.updateProduct = async (req, res) => {
     try {
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-        });
+        const product = await Product.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
 
         res.status(200).json({
             status: 'success',
@@ -154,7 +189,7 @@ exports.updateProduct = async (req, res) => {
     } catch (err) {
         res.status(400).json({
             status: 'failed',
-            message: 'Invalid Data Sent->' + err,
+            message: 'Invalid Update Data Sent->' + err,
         });
     }
 };
@@ -170,7 +205,84 @@ exports.deleteProduct = async (req, res) => {
     } catch (err) {
         res.status(400).json({
             status: 'failed',
-            message: 'Invalid Data Sent->' + err,
+            message: 'Invalid delete Data Sent->' + err,
+        });
+    }
+};
+
+exports.getAllFree = async (req, res) => {
+    try {
+        console.log(
+            '*************Getting All Free items...',
+            process.env.NUM_ITEMS_TO_RETURN
+        );
+
+        const NUM_ITEMS = process.env.NUM_ITEMS_TO_RETURN * 1;
+
+        const plan = await Product.aggregate([
+            {
+                // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
+                $unwind: '$vendors',
+            },
+            {
+                $match: {
+                    'vendors.sellingPrice': 0,
+                },
+            },
+            {
+                $limit: NUM_ITEMS,
+                // $limit : 6
+            },
+        ]);
+
+        res.status(200).json({
+            status: 'Status success',
+            data: {
+                plan,
+            },
+        });
+    } catch (err) {
+        // console.log( err );
+        res.status(400).json({
+            status: 'failed',
+            message: 'FREE : Invalid Data Sent->' + err,
+        });
+    }
+};
+
+exports.getLatest = async (req, res) => {
+    try {
+        console.log('*************Getting Latest Items...');
+
+        const NUM_ITEMS = process.env.NUM_ITEMS_TO_RETURN * 1;
+
+        const plan = await Product.aggregate([
+            {
+                // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
+                $unwind: '$vendors',
+            },
+            {
+                $sort: {
+                    'vendors.listingDate': -1,
+                },
+            },
+            {
+                $limit: NUM_ITEMS,
+                // $limit : 6
+            },
+        ]);
+
+        res.status(200).json({
+            status: 'Status success',
+            data: {
+                plan,
+            },
+        });
+    } catch (err) {
+        // console.log( err );
+        res.status(400).json({
+            status: 'failed',
+            message: 'FREE : Invalid Data Sent->' + err,
         });
     }
 };

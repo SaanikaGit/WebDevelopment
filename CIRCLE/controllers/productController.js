@@ -3,9 +3,29 @@
 
 const Product = require('../models/productModel');
 
+exports.aliasGetVendorProducts = ( req, res, next) => {
+    // const query =  '{\'vendors.vname\' :\'' + req.params.id + '\'}' ;
+    // const search =  '{\'vendors.vname\'=\'' + req.params.id + '\'}';
+    // console.log( query);
+    // console.log( search);
+    // // req.query = JSON.stringify( query);
+    
+    // const query =  ` \'vendors.vname\' : \'${req.params.id}\' ` ;
+    // console.log( JSON.stringify(query));
+    // req.query = query;
+    // // req.search = search;
+    next();
+
+    // { 'vendors.vname': 'Saanika' }
+};
+
 exports.getAllProducts = async (req, res) => {
     try {
-        console.log(req.query);
+        console.log('Get all products - query ->[', req.query, ']');
+        // console.log( req );
+
+
+
         // "..." destuctures the object and "{}" constructs an object
         // This is done so we get "queryObj" as a new object and not pointing to the same object as re.query
         const queryObj = { ...req.query };
@@ -64,9 +84,9 @@ exports.getAllProducts = async (req, res) => {
 
         // If page requested does not exist...
         if (req.query.page) {
-            const numProducts = await Tour.countDocuments();
+            const numProducts = await Product.countDocuments();
             if (skip >= numProducts) {
-                throw new Error('No More Tours to Display');
+                throw new Error('No More Products to Display');
             }
         }
 

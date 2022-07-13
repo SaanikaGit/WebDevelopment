@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var slugify = require('slugify');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -18,9 +19,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     nameSlug: {
-        type: String,
-        trin : true,
-        default : this.name.replace( " ", "-"),
+        type: String
     },
     dateCreated: {
         type: Date,
@@ -30,14 +29,24 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
-    myItems: [
+    myBidItems: [
         {
-            itemName: String,
+                itemName: String,
             subject: String,
             grade: String,
             image: String,
+            bidDate: {
+                type: Date,
+                default: Date.now(),
+            },
         },
     ],
+});
+
+// Middleware to populate Slug...
+userSchema.pre('save', function (next) {
+    this.nameSlug = slugify(this.name);
+    next();
 });
 
 const User = mongoose.model('User', userSchema);

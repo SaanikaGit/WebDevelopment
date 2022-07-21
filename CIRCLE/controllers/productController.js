@@ -3,6 +3,7 @@
 
 const AppError = require('../utils/appError');
 const Product = require('../models/productModel');
+const envSpecificErr = require( '../utils/envSpecificError');
 
 exports.aliasGetVendorProducts = (req, res, next) => {
     // const query =  '{\'vendors.vname\' :\'' + req.params.id + '\'}' ;

@@ -1,15 +1,16 @@
 // const { match } = require('assert');
 // const fs = require('fs');
 
+const AppError = require('../utils/appError');
 const Product = require('../models/productModel');
 
-exports.aliasGetVendorProducts = ( req, res, next) => {
+exports.aliasGetVendorProducts = (req, res, next) => {
     // const query =  '{\'vendors.vname\' :\'' + req.params.id + '\'}' ;
     // const search =  '{\'vendors.vname\'=\'' + req.params.id + '\'}';
     // console.log( query);
     // console.log( search);
     // // req.query = JSON.stringify( query);
-    
+
     // const query =  ` \'vendors.vname\' : \'${req.params.id}\' ` ;
     // console.log( JSON.stringify(query));
     // req.query = query;
@@ -19,12 +20,10 @@ exports.aliasGetVendorProducts = ( req, res, next) => {
     // { 'vendors.vname': 'Saanika' }
 };
 
-exports.getAllProducts = async (req, res) => {
+exports.getAllProducts = async (req, res, next) => {
     try {
         console.log('Get all products - query ->[', req.query, ']');
         // console.log( req );
-
-
 
         // "..." destuctures the object and "{}" constructs an object
         // This is done so we get "queryObj" as a new object and not pointing to the same object as re.query
@@ -102,16 +101,22 @@ exports.getAllProducts = async (req, res) => {
             },
         });
     } catch (err) {
-        res.status(400).json({
-            status: 'failed in getting all products ',
-            message: err,
-        });
+        next(new AppError('Unable to GET ALL products -> ' + err, 400));
     }
 };
 
-exports.getProduct = async (req, res) => {
+exports.getProduct = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
+
+        if ( !product){
+            console.log( 'No Product Found - 1');
+            return res.status(404).json({
+                status: 'failed',
+                message: `No Product corresponding to id [${req.params.id}] found`,
+            });
+
+        }
 
         res.status(200).json({
             status: 'success',
@@ -120,17 +125,14 @@ exports.getProduct = async (req, res) => {
             },
         });
     } catch (err) {
-        res.status(400).json({
-            status: 'failed in getting product',
-            message: err,
-        });
+        next(new AppError('Unable to GET product info-> ' + err, 400));
     }
 };
 
-exports.createProduct = async (req, res) => {
+exports.createProduct = async (req, res, next) => {
     try {
         const newProduct = await Product.create(req.body);
-
+        
         res.status(201).json({
             status: 'success',
             data: {
@@ -138,14 +140,12 @@ exports.createProduct = async (req, res) => {
             },
         });
     } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'Invalid Create Data Sent->' + err,
-        });
+        next(new AppError('Invalid Create Product Data Sent-> ' + err, 400));
+        
     }
 };
 
-exports.addProductVendor = async (req, res) => {
+exports.addProductVendor = async (req, res, next) => {
     try {
         // console.log('Add Product Vendoro called');
         // console.log(req.params.id);
@@ -158,40 +158,34 @@ exports.addProductVendor = async (req, res) => {
             status: 'success',
             message: 'Product Vendor Added',
             // data: {
-            //     product,
-            // },
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'Invalid add vendor Data Sent->' + err,
-        });
-    }
-};
-
-exports.dropProductVendor = async (req, res) => {
-    try {
-        console.log('Drop Product Vendoro called');
-        console.log(req.params.id);
-        console.log(req.params.delId);
-        const product = await Product.findByIdAndUpdate(req.params.id, {
-            $pull: { vendors: { _id: req.params.delId } },
-        });
-
-        res.status(200).json({
-            status: 'success',
-            message: 'Product Vendor Dropped',
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'Invalid DROP Data Sent->' + err,
-        });
-    }
-};
-
-exports.updateProduct = async (req, res) => {
-    try {
+                //     product,
+                // },
+            });
+        } catch (err) {
+            next(new AppError('Invalid AddVendorProduct Data Sent-> ' + err, 400));
+        }
+    };
+    
+    exports.dropProductVendor = async (req, res, next) => {
+        try {
+            console.log('Drop Product Vendoro called');
+            console.log(req.params.id);
+            console.log(req.params.delId);
+            const product = await Product.findByIdAndUpdate(req.params.id, {
+                $pull: { vendors: { _id: req.params.delId } },
+            });
+            
+            res.status(200).json({
+                status: 'success',
+                message: 'Product Vendor Dropped',
+            });
+        } catch (err) {
+            next(new AppError('Invalid DropVendorProduct Data Sent-> ' + err, 400));
+        }
+    };
+    
+    exports.updateProduct = async (req, res, next) => {
+        try {
         const product = await Product.findByIdAndUpdate(
             req.params.id,
             req.body,
@@ -209,26 +203,20 @@ exports.updateProduct = async (req, res) => {
             },
         });
     } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'Invalid Update Data Sent->' + err,
-        });
+        next(new AppError('Invalid UpdateProduct Data Sent-> ' + err, 400));
     }
 };
 
-exports.deleteProduct = async (req, res) => {
+exports.deleteProduct = async (req, res, next) => {
     try {
         await Product.findByIdAndDelete(req.params.id);
-
+        
         res.status(204).json({
             status: 'success',
             message: 'Product Deleted',
         });
     } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'Invalid delete Data Sent->' + err,
-        });
+        next(new AppError('Invalid DeleteProduct Data Sent-> ' + err, 400));
     }
 };
 

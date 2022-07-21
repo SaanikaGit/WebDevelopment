@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+// Handle ALL unhandled ( SYNC code ) exceptions... Like MOngoose connectioon error
+process.on('uncaughtException', (err) => {
+    console.log('UNCAUGHT EXCEPTION IN APPLICATION..');
+    console.log(err.name, err.message);
+    console.log('EXITING APPLICATION........');
+    process.exit(1);
+});
+
 // Set environment variables...
 dotenv.config({ path: './config.env' });
 const app = require('./app');
@@ -21,6 +29,16 @@ mongoose
 
 // Start Server...
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Listening on port ${port} `);
+});
+
+// Handle ALL unhandled ( ASYNC code ) promise rejections... Like MOngoose connectioon error
+process.on('unhandledRejection', (err) => {
+    console.log('UNHANDLED REJECTION IN APPLICATION..');
+    console.log(err.name, err.message);
+    console.log('EXITING APPLICATION........');
+    server.close(() => {
+        process.exit(1);
+    });
 });

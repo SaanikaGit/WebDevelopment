@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 process.on('uncaughtException', (err) => {
     console.log('UNCAUGHT EXCEPTION IN APPLICATION..');
     console.log(err.name, err.message);
+    console.log(err.stack);
     console.log('EXITING APPLICATION........');
     process.exit(1);
 });
@@ -28,7 +29,7 @@ mongoose
     });
 
 // Start Server...
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
     console.log(`Listening on port ${port} `);
 });

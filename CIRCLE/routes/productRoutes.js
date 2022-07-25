@@ -1,5 +1,6 @@
 const express = require('express');
 const productController = require('../controllers/productController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -13,23 +14,22 @@ router.route('/get-latest').get(productController.getLatest);
 
 router
     .route('/')
-    .get(productController.getAllProducts)
-    .post(productController.createProduct);
+    .get(authController.validateToken, productController.getAllProducts)
+    .post(authController.validateToken, productController.createProduct);
 
 router.route('/get-all-free').get(productController.getAllFree);
 
 router
     .route('/vendor/:id')
     // .get(productController.aliasGetVendorProducts, productController.getAllProducts)
-    .patch(productController.addProductVendor);
+    .patch(authController.validateToken, productController.addProductVendor);
 
-router.route('/vendor/:id/:delId')
-    .patch(productController.dropProductVendor);
+router.route('/vendor/:id/:delId').patch(authController.validateToken, productController.dropProductVendor);
 
 router
     .route('/:id')
-    .get(productController.getProduct)
-    .patch(productController.updateProduct)
-    .delete(productController.deleteProduct);
+    .get(authController.validateToken, productController.getProduct)
+    .patch(authController.validateToken, productController.updateProduct)
+    .delete(authController.validateToken, productController.deleteProduct);
 
 module.exports = router;

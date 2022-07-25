@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+// parses incoming requests with JSON data and attaced them to req.body
 app.use(express.json());
 
 //serving static files on our filesystem

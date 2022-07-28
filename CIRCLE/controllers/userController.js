@@ -109,6 +109,8 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     try {
+        console.log( 'IN [ userRoute:getUser]');
+
         const user = await User.findById(req.params.id);
 
         

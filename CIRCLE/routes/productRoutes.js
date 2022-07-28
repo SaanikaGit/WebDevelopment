@@ -28,8 +28,12 @@ router.route('/vendor/:id/:delId').patch(authController.validateToken, productCo
 
 router
     .route('/:id')
-    .get(authController.validateToken, productController.getProduct)
-    .patch(authController.validateToken, productController.updateProduct)
-    .delete(authController.validateToken, productController.deleteProduct);
+    .get(authController.validateToken, productController.getProduct);
+
+    // Update Product needs to be an admin functionaliity...
+    // .patch(authController.validateToken, productController.updateProduct);
+
+    // We are not giving a DELETE PRODUCT route. This will be an admin functionality....
+    // .delete(authController.validateToken, productController.deleteProduct);
 
 module.exports = router;

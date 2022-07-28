@@ -33,6 +33,10 @@ const productSchema = new mongoose.Schema({
     vendors: [
         {
             vname: String,
+            vid: {
+                type: String,
+                select: false,
+            },
             datePurchased: Date,
             condition: String,
             costPrice: Number,

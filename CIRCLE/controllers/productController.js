@@ -3,7 +3,7 @@
 
 const AppError = require('../utils/appError');
 const Product = require('../models/productModel');
-const envSpecificErr = require( '../utils/envSpecificError');
+const envSpecificErr = require('../utils/envSpecificError');
 
 exports.aliasGetVendorProducts = (req, res, next) => {
     // const query =  '{\'vendors.vname\' :\'' + req.params.id + '\'}' ;
@@ -110,13 +110,12 @@ exports.getProduct = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
 
-        if ( !product){
-            console.log( 'No Product Found - 1');
+        if (!product) {
+            console.log('No Product Found - 1');
             return res.status(404).json({
                 status: 'failed',
                 message: `No Product corresponding to id [${req.params.id}] found`,
             });
-
         }
 
         res.status(200).json({
@@ -133,7 +132,7 @@ exports.getProduct = async (req, res, next) => {
 exports.createProduct = async (req, res, next) => {
     try {
         const newProduct = await Product.create(req.body);
-        
+
         res.status(201).json({
             status: 'success',
             data: {
@@ -142,7 +141,6 @@ exports.createProduct = async (req, res, next) => {
         });
     } catch (err) {
         next(new AppError('Invalid Create Product Data Sent-> ' + err, 400));
-        
     }
 };
 
@@ -151,6 +149,19 @@ exports.addProductVendor = async (req, res, next) => {
         // console.log('Add Product Vendoro called');
         // console.log(req.params.id);
         // console.log(req.body);
+
+        // TBD = HOW DO WE GET USER NAME FROM TOKEN....
+        // Fill data from req.body
+        let newVendor = {
+            vname: undefined,
+            vid: undefined,
+            datePurchased: req.body.datePurchased,
+            condition: req.body.condition,
+            costPrice: req.body.costPrice,
+            sellingPrice: req.body.sellingPrice,
+            vendorImage: req.body.vendorImage,
+        };
+
         const product = await Product.findByIdAndUpdate(req.params.id, {
             $push: { vendors: req.body },
         });
@@ -159,34 +170,34 @@ exports.addProductVendor = async (req, res, next) => {
             status: 'success',
             message: 'Product Vendor Added',
             // data: {
-                //     product,
-                // },
-            });
-        } catch (err) {
-            next(new AppError('Invalid AddVendorProduct Data Sent-> ' + err, 400));
-        }
-    };
-    
-    exports.dropProductVendor = async (req, res, next) => {
-        try {
-            console.log('Drop Product Vendoro called');
-            console.log(req.params.id);
-            console.log(req.params.delId);
-            const product = await Product.findByIdAndUpdate(req.params.id, {
-                $pull: { vendors: { _id: req.params.delId } },
-            });
-            
-            res.status(200).json({
-                status: 'success',
-                message: 'Product Vendor Dropped',
-            });
-        } catch (err) {
-            next(new AppError('Invalid DropVendorProduct Data Sent-> ' + err, 400));
-        }
-    };
-    
-    exports.updateProduct = async (req, res, next) => {
-        try {
+            //     product,
+            // },
+        });
+    } catch (err) {
+        next(new AppError('Invalid AddVendorProduct Data Sent-> ' + err, 400));
+    }
+};
+
+exports.dropProductVendor = async (req, res, next) => {
+    try {
+        console.log('Drop Product Vendoro called');
+        console.log(req.params.id);
+        console.log(req.params.delId);
+        const product = await Product.findByIdAndUpdate(req.params.id, {
+            $pull: { vendors: { _id: req.params.delId } },
+        });
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Product Vendor Dropped',
+        });
+    } catch (err) {
+        next(new AppError('Invalid DropVendorProduct Data Sent-> ' + err, 400));
+    }
+};
+
+exports.updateProduct = async (req, res, next) => {
+    try {
         const product = await Product.findByIdAndUpdate(
             req.params.id,
             req.body,
@@ -211,7 +222,7 @@ exports.addProductVendor = async (req, res, next) => {
 exports.deleteProduct = async (req, res, next) => {
     try {
         await Product.findByIdAndDelete(req.params.id);
-        
+
         res.status(204).json({
             status: 'success',
             message: 'Product Deleted',

@@ -5,7 +5,7 @@ const AppError = require('../utils/appError');
 const Product = require('../models/productModel');
 const envSpecificErr = require('../utils/envSpecificError');
 
-exports.aliasGetVendorProducts = (req, res, next) => {
+exports.aliasGetVendorProductsOrig = (req, res, next) => {
     // const query =  '{\'vendors.vname\' :\'' + req.params.id + '\'}' ;
     // const search =  '{\'vendors.vname\'=\'' + req.params.id + '\'}';
     // console.log( query);
@@ -19,6 +19,40 @@ exports.aliasGetVendorProducts = (req, res, next) => {
     next();
 
     // { 'vendors.vname': 'Saanika' }
+};
+
+exports.getVendorProducts = async (req, res) => {
+    try {
+        console.log(
+            '*************Getting all vendor products for -',
+            req.user.email
+        );
+
+        const vendorProducts = await Product.aggregate([
+            {
+                // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
+                $unwind: '$vendors',
+            },
+            {
+                $match: {
+                    'vendors.vemail': req.user.email,
+                },
+            },
+        ]);
+
+        res.status(200).json({
+            status: 'Status success',
+            data: {
+                vendorProducts,
+            },
+        });
+    } catch (err) {
+        // console.log( err );
+        res.status(400).json({
+            status: 'failed',
+            message: 'Vendor Products : Invalid Data Sent->' + err,
+        });
+    }
 };
 
 exports.getAllProducts = async (req, res, next) => {
@@ -144,17 +178,46 @@ exports.createProduct = async (req, res, next) => {
     }
 };
 
+// Add logged in user ( as per Token ) as a vendor of selected product.
+// Vendor name and email are taken from REQ ( which is populated in validateToken )
+// remaining fields are user suppliled via input  FORM...
 exports.addProductVendor = async (req, res, next) => {
     try {
-        // console.log('Add Product Vendoro called');
+        console.log('Add Product Vendor called');
         // console.log(req.params.id);
         // console.log(req.body);
 
-        // TBD = HOW DO WE GET USER NAME FROM TOKEN....
+        // Get PRODUCT and check if current logged in vendor is already a vendor of this product
+        let product = await Product.findById(req.params.id);
+
+        if (!product) {
+            console.log('No Product Found - 1');
+            return res.status(404).json({
+                status: 'failed',
+                message: `No Product corresponding to id [${req.params.id}] found`,
+            });
+            // return next();
+        }
+
+        const productVendors = product.vendors;
+        const vendorRegistered = productVendors.find(
+            (el) => el.vemail === req.user.email
+        );
+
+        if (vendorRegistered) {
+            console.log('Vendor already present');
+            return res.status(200).json({
+                status: 'Success',
+                message: `Vendor already registered with this product`,
+            });
+        }
+
+        console.log('This vendor is NOT yet registered with the product');
+
         // Fill data from req.body
         let newVendor = {
-            vname: undefined,
-            vid: undefined,
+            vname: req.user.name,
+            vemail: req.user.email,
             datePurchased: req.body.datePurchased,
             condition: req.body.condition,
             costPrice: req.body.costPrice,
@@ -162,8 +225,10 @@ exports.addProductVendor = async (req, res, next) => {
             vendorImage: req.body.vendorImage,
         };
 
-        const product = await Product.findByIdAndUpdate(req.params.id, {
-            $push: { vendors: req.body },
+        // console.log( 'New Vendor for Product');
+        console.log('New Vendor - ', newVendor);
+        product = await Product.findByIdAndUpdate(req.params.id, {
+            $push: { vendors: newVendor },
         });
 
         res.status(200).json({
@@ -178,19 +243,28 @@ exports.addProductVendor = async (req, res, next) => {
     }
 };
 
+// Need to check if logged in user has a product...
 exports.dropProductVendor = async (req, res, next) => {
     try {
-        console.log('Drop Product Vendoro called');
+        console.log('Drop Product Vendor called -', req.user.email);
         console.log(req.params.id);
-        console.log(req.params.delId);
         const product = await Product.findByIdAndUpdate(req.params.id, {
-            $pull: { vendors: { _id: req.params.delId } },
+            $pull: { vendors: { vemail: req.user.email } },
         });
 
-        res.status(200).json({
-            status: 'success',
-            message: 'Product Vendor Dropped',
-        });
+        console.log(product);
+
+        if (!product) {
+            res.status(201).json({
+                status: 'success',
+                message: 'Product Not found',
+            });
+        } else {
+            res.status(200).json({
+                status: 'success',
+                message: 'Product Vendor Dropped',
+            });
+        }
     } catch (err) {
         next(new AppError('Invalid DropVendorProduct Data Sent-> ' + err, 400));
     }
@@ -241,7 +315,7 @@ exports.getAllFree = async (req, res) => {
 
         const NUM_ITEMS = process.env.NUM_ITEMS_TO_RETURN * 1;
 
-        const plan = await Product.aggregate([
+        const freeProducts = await Product.aggregate([
             {
                 // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
                 $unwind: '$vendors',
@@ -260,7 +334,7 @@ exports.getAllFree = async (req, res) => {
         res.status(200).json({
             status: 'Status success',
             data: {
-                plan,
+                freeProducts,
             },
         });
     } catch (err) {
@@ -278,7 +352,7 @@ exports.getLatest = async (req, res) => {
 
         const NUM_ITEMS = process.env.NUM_ITEMS_TO_RETURN * 1;
 
-        const plan = await Product.aggregate([
+        const latestProducts = await Product.aggregate([
             {
                 // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
                 $unwind: '$vendors',
@@ -297,7 +371,7 @@ exports.getLatest = async (req, res) => {
         res.status(200).json({
             status: 'Status success',
             data: {
-                plan,
+                latestProducts,
             },
         });
     } catch (err) {

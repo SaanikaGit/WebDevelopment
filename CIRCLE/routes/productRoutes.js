@@ -21,19 +21,21 @@ router.route('/get-all-free').get(productController.getAllFree);
 
 router
     .route('/vendor/:id')
-    // .get(productController.aliasGetVendorProducts, productController.getAllProducts)
-    .patch(authController.validateToken, productController.addProductVendor);
+    .put(authController.validateToken, productController.addProductVendor)
+    .delete(authController.validateToken, productController.dropProductVendor);
 
-router.route('/vendor/:id/:delId').patch(authController.validateToken, productController.dropProductVendor);
+router
+    .route('/vendor')
+    .get(authController.validateToken, productController.getVendorProducts);
 
 router
     .route('/:id')
     .get(authController.validateToken, productController.getProduct);
 
-    // Update Product needs to be an admin functionaliity...
-    // .patch(authController.validateToken, productController.updateProduct);
+// Update Product needs to be an admin functionaliity...
+// .patch(authController.validateToken, productController.updateProduct);
 
-    // We are not giving a DELETE PRODUCT route. This will be an admin functionality....
-    // .delete(authController.validateToken, productController.deleteProduct);
+// We are not giving a DELETE PRODUCT route. This will be an admin functionality....
+// .delete(authController.validateToken, productController.deleteProduct);
 
 module.exports = router;

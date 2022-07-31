@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const bcrypt = require('bcryptjs');
 
-const createToken = (id, slug) => {
-    return jwt.sign({ id, slug }, process.env.JWT_SECRET, {
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
     });
 };
@@ -19,7 +19,7 @@ exports.signup = async (req, res, next) => {
             passwordChangedAt: req.body.passwordChangedAt,
         });
 
-        const token = createToken(newUser._id, newUser.nameSlug);
+        const token = createToken(newUser._id);
 
         res.status(201).json({
             status: 'success',
@@ -49,10 +49,10 @@ exports.login = async (req, res, next) => {
             });
             return next();
         }
+        console.log( 'LOGIN : username present');
         // Check if user with password exists
         // + Password done as 'password' field  ahs been defined with select=false in model, so default GETS adn FINDS will never return this field
         const user = await User.findOne({ email }).select('+password');
-        console.log( 'Reached here...')
         if (!user || !(await user.passowrdMatches(password, user.password))) {
             res.status(400).json({
                 status: 'Incorrect Email or Password given',
@@ -60,10 +60,13 @@ exports.login = async (req, res, next) => {
             });
             return next();
         }
+        console.log( 'LOGIN : password match');
 
         // send JWT
 
-        const token = createToken(user._id, user.nameSlug);
+        const token = createToken(user._id);
+
+        console.log( 'LOGIN : token created');
 
         res.status(200).json({
             status: 'USer Logged in',
@@ -92,7 +95,7 @@ exports.validateToken = async (req, res, next) => {
 
         if (!token) {
             res.status(401).json({
-                status: 'YOu are not logged in.',
+                status: 'You are not logged in.',
                 message: 'Missing Token',
             });
 
@@ -108,8 +111,8 @@ exports.validateToken = async (req, res, next) => {
         console.log('Decoded [', decoded, ']');
 
         // Check if user still exists...
-        const dbChecked = await User.findById(decoded.id);
-        if (!dbChecked) {
+        const tokenUser = await User.findById(decoded.id);
+        if (!tokenUser) {
             res.status(401).json({
                 status: 'User with this token no longer exists',
             });
@@ -117,7 +120,7 @@ exports.validateToken = async (req, res, next) => {
         }
 
         // check if user changed password after token was issued
-        if (dbChecked.passwordChangedAfterToken(decoded.iat)) {
+        if (tokenUser.passwordChangedAfterToken(decoded.iat)) {
             res.status(401).json({
                 status: 'Passwd Changed. Please login again.',
             });
@@ -125,6 +128,8 @@ exports.validateToken = async (req, res, next) => {
         }
 
         // Token is perfect - access granted to next function in route stack.
+        req.user = tokenUser;
+        console.log(req.user);
         next();
     } catch (err) {
         res.status(401).json({
@@ -133,4 +138,3 @@ exports.validateToken = async (req, res, next) => {
         });
     }
 };
-

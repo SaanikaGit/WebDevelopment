@@ -16,7 +16,7 @@ exports.signup = async (req, res, next) => {
             email: req.body.email,
             password: req.body.password,
             passwordConfirm: req.body.passwordConfirm,
-            passwordChangedAt: req.body.passwordChangedAt,
+            // passwordChangedAt: req.body.passwordChangedAt,
         });
 
         const token = createToken(newUser._id);
@@ -49,7 +49,7 @@ exports.login = async (req, res, next) => {
             });
             return next();
         }
-        console.log( 'LOGIN : username present');
+        // console.log( 'LOGIN : username present');
         // Check if user with password exists
         // + Password done as 'password' field  ahs been defined with select=false in model, so default GETS adn FINDS will never return this field
         const user = await User.findOne({ email }).select('+password');
@@ -60,13 +60,13 @@ exports.login = async (req, res, next) => {
             });
             return next();
         }
-        console.log( 'LOGIN : password match');
+        // console.log( 'LOGIN : password match');
 
         // send JWT
 
         const token = createToken(user._id);
 
-        console.log( 'LOGIN : token created');
+        // console.log( 'LOGIN : token created');
 
         res.status(200).json({
             status: 'USer Logged in',
@@ -108,7 +108,7 @@ exports.validateToken = async (req, res, next) => {
             token,
             process.env.JWT_SECRET
         );
-        console.log('Decoded [', decoded, ']');
+        // console.log('Decoded [', decoded, ']');
 
         // Check if user still exists...
         const tokenUser = await User.findById(decoded.id);
@@ -129,7 +129,7 @@ exports.validateToken = async (req, res, next) => {
 
         // Token is perfect - access granted to next function in route stack.
         req.user = tokenUser;
-        console.log(req.user);
+        // console.log(req.user);
         next();
     } catch (err) {
         res.status(401).json({

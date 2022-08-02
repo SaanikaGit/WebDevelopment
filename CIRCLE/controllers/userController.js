@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-
+const Product = require('../models/productModel');
 
 exports.getAllUsers = async (req, res) => {
     try {
@@ -89,38 +89,19 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-exports.createUser = async (req, res) => {
+// Created this function as it might be needed in future
+exports.getUserAdmin = async (req, res) => {
     try {
-        const newUser = await User.create(req.body);
-
-        res.status(201).json({
-            status: 'success',
-            data: {
-                user: newUser,
-            },
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'Invalid Create Data Sent->' + err,
-        });
-    }
-};
-
-exports.getUser = async (req, res) => {
-    try {
-        console.log( 'IN [ userRoute:getUser]');
+        console.log('IN [ userRoute:getUser]');
 
         const user = await User.findById(req.params.id);
 
-        
         if (!user) {
-            console.log( 'No User Found - 1');
+            console.log('No User Found - 1');
             return res.status(404).json({
                 status: 'failed',
                 message: `No User corresponding to id [${req.params.id}] found`,
             });
-            
         }
 
         res.status(200).json({
@@ -137,16 +118,29 @@ exports.getUser = async (req, res) => {
     }
 };
 
+// 'validateTOken' has already put in User details REQ...
+exports.getUser = async (req, res) => {
+    try {
+        res.status(200).json({
+            status: 'success',
+            data: {
+                user: req.user,
+            },
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'failed in getting User',
+            message: err,
+        });
+    }
+};
+
 exports.updateUser = async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            {
-                new: true,
-                runValidators: true,
-            }
-        );
+        const user = await User.findByIdAndUpdate(req.user.id, req.body, {
+            new: true,
+            runValidators: true,
+        });
 
         res.status(200).json({
             status: 'success',
@@ -160,24 +154,62 @@ exports.updateUser = async (req, res) => {
             status: 'failed',
             message: 'Invalid Update Data Sent->' + err,
         });
-    }};
+    }
+};
 
-    exports.addUserBid = async (req, res) => {
-        try {
-            console.log( 'Add user Bid for-', req.params.id);
-            const user = await User.findByIdAndUpdate(req.params.id, {
-                $push: { myBidItems: req.body },
-            });
-    
-            res.status(200).json({
-                status: 'success',
-                message: 'User Bid Added',
-            });
-        } catch (err) {
-            res.status(400).json({
+//Not checking for multiple bids on same item for same vendor, as it does not matter...
+exports.addUserBid = async (req, res) => {
+    try {
+        // console.log(
+        //     'Adding bid for user [',
+        //     req.user.id,
+        //     '] for product [',
+        //     req.params.id,
+        //     ']'
+        // );
+
+        // Find product by ID
+        const product = await Product.findById(req.params.id);
+
+        // console.log('product-', product);
+
+        if (!product) {
+            console.log('No Product Found.');
+            return res.status(404).json({
                 status: 'failed',
-                message: 'Invalid add User Bid Sent->' + err,
+                message: `No Product corresponding to id [${req.params.id}] found`,
             });
         }
-    };
-    
+
+        //Add Bid...
+        // Fill data from req.user
+        // TBD - 'image' can come from user, as filled in form
+        const newBid = {
+            itemName: product.name,
+            subject: product.subject,
+            category: product.type,
+            grade: product.grade,
+            vendor: req.params.name,
+            image: product.imageCover,
+        };
+
+        console.log('Adding bid for user-', req.user.id);
+        // console.log(newBid);
+
+        const user = await User.findByIdAndUpdate(req.user.id, {
+            $push: { myBidItems: newBid },
+        });
+
+        // console.log(user);
+        res.status(200).json({
+            status: 'success',
+            message: 'User Bid Added',
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'failed',
+            message: 'Invalid add User Bid Sent->' + err,
+            stack: err.stack,
+        });
+    }
+};

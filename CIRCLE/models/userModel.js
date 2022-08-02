@@ -58,7 +58,9 @@ const userSchema = new mongoose.Schema({
         {
             itemName: String,
             subject: String,
+            category: String,
             grade: String,
+            vendor: String,
             image: String,
             bidDate: {
                 type: Date,

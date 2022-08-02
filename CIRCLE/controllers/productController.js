@@ -214,7 +214,7 @@ exports.addProductVendor = async (req, res, next) => {
 
         console.log('This vendor is NOT yet registered with the product');
 
-        // Fill data from req.body
+        // Fill data from req.user
         let newVendor = {
             vname: req.user.name,
             vemail: req.user.email,

@@ -4,21 +4,23 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
+// This needs to be an ADMIN ONLY call - TBD...
+router
+    .route('/all')
+    .get(authController.validateToken, userController.getAllUsers);
 
-
+//TBD
 router
     .route('/')
-    .get(userController.getAllUsers)
-    .post(userController.createUser);
-router
-    .route('/:id')
-    .get(userController.getUser)
-    .patch(userController.updateUser);
-router.route('/product/:id').patch(userController.addUserBid);
+    .get(authController.validateToken, userController.getUser)
+    .patch(authController.validateToken, userController.updateUser);
 
+//TBD
+router
+    .route('/product/:id/:name')
+    .patch(authController.validateToken, userController.addUserBid);
 
 module.exports = router;

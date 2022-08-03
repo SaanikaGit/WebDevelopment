@@ -1,6 +1,8 @@
+const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
+const sendEmail = require('./../utils/email');
 const bcrypt = require('bcryptjs');
 
 const createToken = (id) => {
@@ -138,3 +140,147 @@ exports.validateToken = async (req, res, next) => {
         });
     }
 };
+
+exports.forgotPassword = async (req, res, next) => {
+    try {
+        // Get user based on posted email
+        const user = await User.findOne({ email: req.body.email });
+
+        if (!user) {
+            res.status(404).json({
+                status: 'User does not exist',
+            });
+        }
+
+        // Generate a reset token
+        const resetToken = user.getPasswordResetToken();
+
+        //this is needed as we are only setting a single field and dont want other validations to run, in this case only
+        await user.save({ validateBeforeSave: false });
+
+        // Send token to user email
+        const resetURL = `${req.protocol}://${req.get(
+            'host'
+        )}/api/vi/users/resetPassword/${resetToken}`;
+
+        const message = `Forgot password? Submit a request with your new password to the following URL ${resetURL}. Please ignore this email if you did not request a password reset.`;
+
+        try {
+            await sendEmail({
+                email: user.email,
+                subject: 'Your password reset token - valid for 20 minutes',
+                message,
+            });
+        } catch (err) {
+            user.passwordResetToken = undefined;
+            user.passwordResetExpires = undefined;
+            await user.save({ validateBeforeSave: false });
+            return res.status(500).json({
+                status: 'Error Sending email - try again',
+                message: 'forgotPassword->' + err,
+                stack: err.stack,
+            });
+        }
+
+        res.status(200).json({
+            status: 'SUCCESS',
+            mesasge: 'password reset email sent',
+        });
+    } catch (err) {
+        res.status(401).json({
+            status: 'Something went wrong',
+            message: 'forgotPassword->' + err,
+            stack: err.stack,
+        });
+    }
+};
+
+exports.resetPassword = async (req, res, next) => {
+    try {
+        // 1) get user based off token
+        const hashedToken = crypto
+            .createHash('sha256')
+            .update(req.params.token)
+            .digest('hex');
+
+        // We dont know anything about the user here, not even the email address...
+        const user = await User.findOne({ passwordResetToken: hashedToken });
+
+        // 2) check if user exists and check if token is still valid
+        if (!user || user.passwordResetExpires.getTime() < Date.now()) {
+            return res.status(404).json({
+                status: 'Invalid Token/User',
+            });
+        }
+
+        // 3) update password
+        user.password = req.body.password;
+        user.passwordConfirm = req.body.passwordConfirm;
+        user.passwordChangedAt = Date.now();
+        user.passwordResetToken = undefined;
+        user.passwordResetExpires = undefined;
+
+        await user.save();
+
+        // 4) send JWT
+        const token = createToken(user._id);
+
+        res.status(200).json({
+            status: 'SUCCESS',
+            token,
+        });
+    } catch (err) {
+        res.status(401).json({
+            status: 'Something went wrong',
+            message: 'resetPassword->' + err,
+            stack: err.stack,
+        });
+    }
+};
+
+exports.updatePassword = async ( req, res, next) => {
+    try{
+        console.log( 'updatePassword Called');
+        // Validate User
+        // Done in alildateToken middleware, that is called before current function...
+        const user = await User.findOne({ email:req.user.email }).select('+password');
+        console.log( {user});
+
+        // console.log( user.password);
+        // console.log( req.body.currPassword);
+
+        // Validate current password
+        if ( !(req.body.currPassword) || !(await user.passowrdMatches( req.body.currPassword, user.password))) {
+            return res.status(400).json({
+                status: 'FAILED',
+                message: 'Incorrect Password given',
+            });
+        }
+
+        console.log( 'curr password OK...')
+        // update password
+        user.password = req.body.password;
+        user.passwordConfirm = req.body.passwordConfirm;
+        user.passwordChangedAt = Date.now();
+  
+        await user.save();
+
+        // 4) send JWT
+        const token = createToken(user._id);
+
+        res.status(200).json({
+            status: 'SUCCESS',
+            token,
+        });
+  
+
+        // Login user and send JWT
+
+    }catch (err) {
+        res.status(401).json({
+            status: 'Something went wrong',
+            message: 'updatePassword->' + err,
+            stack: err.stack,
+        });
+    }
+}

@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 var slugify = require('slugify');
 const validator = require('validator');
@@ -54,6 +55,8 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
     myBidItems: [
         {
             itemName: String,
@@ -106,6 +109,22 @@ userSchema.methods.passwordChangedAfterToken = function (JWTTimestamp) {
 
     // False means NOT changed
     return false;
+};
+
+userSchema.methods.getPasswordResetToken = function () {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+
+    this.passwordResetToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex');
+
+    //  Expires in 20 minutes
+    this.passwordResetExpires = Date.now() + 20 * 60 * 1000;
+
+    console.log({ resetToken }, this.passwordResetToken);
+    //Return unencrypted token via email...
+    return resetToken;
 };
 
 const User = mongoose.model('User', userSchema);

@@ -1,4 +1,5 @@
 //Morgan is logger middlware used by Express...
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -14,8 +15,17 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
+// Set PUG as the VIEW template engine...
+app.set('view engine', 'pug');
+// Set template VIEWS directory...
+app.set('views', path.join(__dirname, 'views'));
+
 // GLOBAL Middlwware....
 // Set HTTP Headers
+// Serve Static files..
+//serving static files on our filesystem
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(helmet());
 
 // LOgging for development
@@ -48,11 +58,8 @@ app.use(xss());
 
 // Prevent HTTP parameter pollution...
 // Multiple search/sort parameters added to URL like "?sort=name&sort=subject" are taken care of. Only 1 parameter is allowed( last one)..
-// if we want to let multiple parameters, we can pass a WHITELIST parameter in hpp.
+// if we want to let multiple parameters, we can pass a WHITELIST parameter in hpp.2
 app.use(hpp());
-
-//serving static files on our filesystem
-app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
@@ -60,6 +67,14 @@ app.use((req, res, next) => {
 });
 
 // Mount Routes...
+
+app.get('/', (req, res) => {
+    res.status(400).render('base', {
+        product: 'Book',
+        vendor: 'Saanika',
+    });
+});
+
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
 

@@ -1,0 +1,20 @@
+extends base
+block content 
+    .productDetail
+        h1= `This is the product detail page for ${product.name}`
+        img.imgFormat( src=`/img/products/${product.imageCover}` alt=`${product.name}`)
+        ul.bookDetails
+            li= `Grade : ${product.grade}`
+            li= `Subject : ${product.subject}`
+            li= `No. of Vendors : ${product.vendors.length}`
+            #vendorDetails
+                h3 Vendor Details
+                //- - var currentVendor = 0
+                - var totalVendors = `${product.vendors.length}`
+                ul.bookDetails
+                    - for( currentVendor = 0; currentVendor < totalVendors; currentVendor++ )
+                        - var vendor = `${product.vendors[currentVendor].vname}`
+                        - var sp = `${product.vendors[currentVendor].sellingPrice}`
+                        - var Condition = `${product.vendors[currentVendor].condition}`
+                        a(href= vendor ) #{vendor} #{sp} #{condition}
+                        br

@@ -1,0 +1,19 @@
+// Header...
+header.stickyHeader
+    nav.navBar
+        //- Left Part of top Nav Bar containing the CICRCLE logo
+        .leftOfNav
+            img(src='/img/CircleLogo.jpg' alt='')
+        //- Middle part of top nav bar that has actual page navigation -->
+        .midMainNav
+            ul 
+                li: a(href='#') TEXTBOOKS
+                li: a(href='#') NOTES
+                li: a(href='#') ABOUT US
+                li: a(href='#') CONTACT US
+                li: input.navSearch(type='text' name='Search' placeholder='Search CIRCLE')
+        //- Right part of top nav bar that has login and FAQ -->
+        .rightOfNav
+            img.navCTA#ctaLogin(src='/img/circle/outline_person_black_48dp.png' alt='') 
+            img.navCTA.navHelp(src='/img/circle/outline_help_outline_black_48dp.png' alt='' )
+            img.navCTA.ctaMenu(src='/img/circle/outline_menu_black_48dp.png' alt='')

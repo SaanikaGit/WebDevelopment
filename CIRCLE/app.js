@@ -12,6 +12,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/userRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
@@ -68,15 +69,11 @@ app.use((req, res, next) => {
 
 // Mount Routes...
 
-app.get('/', (req, res) => {
-    res.status(400).render('base', {
-        product: 'Book',
-        vendor: 'Saanika',
-    });
-});
+
 
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/', viewRouter);
 
 // Default Router ( ALL => all operations GET/POST/PATCH etc ) - for routes not defined as yet...
 // If we hit this point - we know that none of the handlers defined above were caught by middleare pipeline...

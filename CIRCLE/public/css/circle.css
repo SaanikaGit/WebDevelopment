@@ -6,6 +6,9 @@
     display: inline-block;
 }
 
+.bodyBoxHeading{
+    
+}
 .boxIMG {
     border: 1px solid black;
     float: left;

@@ -11,10 +11,22 @@ block content
                 h3 Vendor Details
                 //- - var currentVendor = 0
                 - var totalVendors = `${product.vendors.length}`
-                ul.bookDetails
+                table 
+                    tr
+                        th Vendor Name
+                        th Selling Price
+                        th Product Condition
+                        th Sold??
+                        th Click to Bid
                     - for( currentVendor = 0; currentVendor < totalVendors; currentVendor++ )
                         - var vendor = `${product.vendors[currentVendor].vname}`
                         - var sp = `${product.vendors[currentVendor].sellingPrice}`
-                        - var Condition = `${product.vendors[currentVendor].condition}`
-                        a(href= vendor ) #{vendor} #{sp} #{condition}
-                        br
+                        - var condition = `${product.vendors[currentVendor].condition}`
+                        - var sold = `${product.vendors[currentVendor].sold}`
+                        tr
+                            td #{vendor} 
+                            td #{sp} 
+                            td #{condition}
+                            td #{sold}
+                            td 
+                                a(href= vendor ) Bid

@@ -5,11 +5,14 @@ exports.getOverview = async (req, res, next) => {
     try {
         // 1. Get all Product data from DB
         const products = await Product.find();
-        
+
         // 2. Build Template
 
         // 3. Populate and render Template
 
+        // res.status(400).render('sampleTable', {
+        //     title: 'sampleTable',
+        // });
         res.status(400).render('overview', {
             title: 'All Products',
             products,
@@ -20,7 +23,7 @@ exports.getOverview = async (req, res, next) => {
 };
 
 exports.getProduct = async (req, res, next) => {
-    try{ 
+    try {
         const product = await Product.findById(req.params.id);
 
         if (!product) {
@@ -38,4 +41,10 @@ exports.getProduct = async (req, res, next) => {
     } catch (err) {
         next(new AppError('Unable to GET product details-> ' + err, 400));
     }
+};
+
+exports.loginForm = async (req, res) => {
+    res.status(200).render('login', {
+        title: 'Login',
+    });
 };

@@ -1,0 +1,16 @@
+extends base
+
+block content 
+    form.loginForm
+        br
+        br
+        label( for='email') Email Address 
+        input#loginEmail.inputCheck(type='email', placeholder='name@domain.com', required)
+        br
+        br
+        br
+        label( for='password') Password 
+        input#loginPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
+        br
+        br
+        button Login

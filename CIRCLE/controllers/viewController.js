@@ -39,7 +39,7 @@ exports.getProduct = async (req, res, next) => {
             product,
         });
     } catch (err) {
-        next(new AppError('Unable to GET product details-> ' + err, 400));
+        next(new AppError('Unable to GET product details for this product', 400));
     }
 };
 

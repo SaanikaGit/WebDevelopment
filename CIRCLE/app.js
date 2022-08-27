@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -29,6 +30,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(helmet());
 
+// Added by SELF...
+app.use(function (req, res, next) {
+    res.setHeader(
+        'Content-Security-Policy',
+        "script-src 'self' cdnjs.cloudflare.com"
+    );
+    res.header('Access-Control-Allow-Credentials', true);
+    // res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:4000");
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    return next();
+});
+
+// app.use(
+//     helmet.contentSecurityPolicy({
+//         directives: {
+//             'script-src-attr': null,
+//         },
+//     })
+// );
+
 // LOgging for development
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -46,6 +69,7 @@ app.use('/api', limiter);
 // parses incoming requests with JSON data and attaced them to req.body
 // Limit size of req.body, so malicious code cannot be sent...
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
 
 // Data sanitization against NOSQL query injection
 // Code like {"$gt":""} - whch is always true and can return all DB values.
@@ -64,12 +88,12 @@ app.use(hpp());
 
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
+    console.log( 'printing cookie' );
+    console.log(req.cookies);
     next();
 });
 
 // Mount Routes...
-
-
 
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);

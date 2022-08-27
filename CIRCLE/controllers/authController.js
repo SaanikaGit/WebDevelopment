@@ -21,10 +21,11 @@ const createTokenSendJwt = (user, returnStatus, res) => {
                 process.env.JWT_COOKIE_EXPIRATION_DAYS * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
+        path: "/"
     };
 
     if (process.env.NODE_ENV === 'production') {
-        cookie.Settings.secure = true;
+        cookieSettings.secure = true;
     }
 
     res.cookie('jwt', token, cookieSettings);
@@ -32,6 +33,8 @@ const createTokenSendJwt = (user, returnStatus, res) => {
     // DOnt display password...
     user.password = undefined;
 
+    // console.log('RES:COOKIE  ')
+    // console.log(res);
     res.status(returnStatus).json({
         status: 'success',
         token,
@@ -89,6 +92,8 @@ exports.login = async (req, res, next) => {
         // send JWT
 
         createTokenSendJwt(user, 200, res);
+        // console.log('in Login - printing RES ');
+        // console.log( res);
     } catch (err) {
         res.status(400).json({
             status: 'failed to Login user',
@@ -108,6 +113,8 @@ exports.validateToken = async (req, res, next) => {
             req.headers.authorization.startsWith('Bearer')
         ) {
             token = req.headers.authorization.split(' ')[1];
+        } else if (req.cookies.jwt) {
+            token = req.cookies.jwt;
         }
 
         if (!token) {
@@ -146,6 +153,8 @@ exports.validateToken = async (req, res, next) => {
 
         // Token is perfect - access granted to next function in route stack.
         req.user = tokenUser;
+        res.locals.user = tokenUser;
+
         // console.log(req.user);
         next();
     } catch (err) {
@@ -154,6 +163,41 @@ exports.validateToken = async (req, res, next) => {
             message: 'Invalid Data Sent->' + err,
         });
     }
+};
+
+// Middleware to check if user is logged in for rendered pages There will not be any error, we will move to NEXT middleware in stack...
+exports.isLoggedIn = async (req, res, next) => {
+    let token = '';
+    // grab token from cookie
+    if (req.cookies.jwt) {
+        token = req.cookies.jwt;
+
+        // Validate token
+        const decoded = await promisify(jwt.verify)(
+            token,
+            process.env.JWT_SECRET
+        );
+        // console.log('Decoded [', decoded, ']');
+
+        // Check if user still exists...
+        const tokenUser = await User.findById(decoded.id);
+        if (!tokenUser) {
+            return next();
+        }
+
+        // check if user changed password after token was issued
+        if (tokenUser.passwordChangedAfterToken(decoded.iat)) {
+            return next();
+        }
+
+        // There is a logged in user...
+        // RES.LOCALS can be used to store any program variables and they are available in all PUG templates
+
+        res.locals.user = tokenUser;
+        // console.log(req.user);
+        return next();
+    }
+    next();
 };
 
 exports.forgotPassword = async (req, res, next) => {

@@ -1,0 +1,24 @@
+extends base
+
+block content 
+    form.signUp
+        h1 Signup for a new account
+        br
+        br
+        label( for='name') Your Name 
+        input#signUpName.inputCheck(type='name', placeholder='name', required)
+        br
+        br
+        label( for='email') Email Address 
+        input#signUpEmail.inputCheck(type='email', placeholder='name@domain.com', required)
+        br
+        br
+        label( for='password') Password 
+        input#signUpPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
+        br
+        br
+        label( for='passwordConfirm') Confirm Password 
+        input#signUpPasswordConfirm.inputCheck(type='password', placeholder='********', required, minlength='8')
+        br
+        br
+        button Sign Up

@@ -1,5 +1,6 @@
-/* eslint-disable */
-// const axios = require('axios').default;
+// import axios from 'axios';
+
+// export const login = async (email, password) => {
 
 const login = async (email, password) => {
     try {
@@ -13,8 +14,6 @@ const login = async (email, password) => {
             },
         });
 
-        console.log('returned');
-        console.log(res);
         if (res.data.status === 'success') {
             alert('Logged in Successfully!!');
             window.setTimeout(() => {

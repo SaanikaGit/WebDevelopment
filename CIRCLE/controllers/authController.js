@@ -21,7 +21,7 @@ const createTokenSendJwt = (user, returnStatus, res) => {
                 process.env.JWT_COOKIE_EXPIRATION_DAYS * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
-        path: "/"
+        path: '/',
     };
 
     if (process.env.NODE_ENV === 'production') {
@@ -100,6 +100,18 @@ exports.login = async (req, res, next) => {
             message: 'Invalid Data Sent->' + err,
         });
     }
+};
+
+// We cannot manipulate of delete the cookie that we sent during login
+// In Logout we send another cookie with same name and no credentials and a short expiration time
+// This replaces the original cookie, and in effect logging out the user...
+exports.logoutOld = (req, res, next) => {
+    res.cookie('jwt', 'logout', {
+        expires: new Date(Date.now() + 5000),
+        httpOnly: true,
+        path: '/',
+    });
+    next();
 };
 
 // Validates the user token. If correct user is already logged in, calls the next function in the toute call sequence

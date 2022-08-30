@@ -31,7 +31,8 @@ module.exports = (err, req, res, next) => {
             res.status(err.statusCode).render('error'),
                 {
                     title: 'Something went wrong!',
-                    msg: err.message,
+                    msg: err,
+                    // msg: err.message,
                 };
         }
     }

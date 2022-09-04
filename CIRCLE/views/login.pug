@@ -1,7 +1,7 @@
 extends base
 
 block content 
-    form.form
+    form.formLogin
         h1 Login to your account
         br
         br
@@ -15,3 +15,12 @@ block content
         br
         br
         button Login
+        hr
+    form.forgotPassword
+        br
+        h2 Forgot Password
+        label( for='forgotEmail') Email Address 
+        input#resetPasswordFor.inputCheck(type='email', placeholder='name@domain.com', required)
+        br
+        button Send Password Reset Link
+        hr

@@ -2,6 +2,33 @@
 
 // export const login = async (email, password) => {
 
+const sendPasswordResetLink = async (email) => {
+    try {
+        console.log(email   );
+        const res = await axios({
+            method: 'POST',
+            url: 'http://localhost:4000/api/v1/users/forgotPassword',
+            data: {
+                email
+            },
+        });
+
+        console.log( 'email sent');
+        console.log(res.data);
+
+        if (res.data.status === 'SUCCESS') {
+            console.log('Password Reset email sent!!');
+            alert('Password Reset email sent!!');
+            window.setTimeout(() => {
+                location.assign('/');
+            }, 1500);
+        }
+    } catch (err) {
+        console.log(err);
+        alert(err.response.data.status);
+    }
+};
+
 const login = async (email, password) => {
     try {
         // console.log(email, password);
@@ -26,9 +53,15 @@ const login = async (email, password) => {
     }
 };
 
-document.querySelector('.form').addEventListener('submit', (e) => {
+document.querySelector('.formLogin').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     login(email, password);
+});
+
+document.querySelector('.forgotPassword').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('resetPasswordFor').value;
+    sendPasswordResetLink(email);
 });

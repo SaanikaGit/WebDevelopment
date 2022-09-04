@@ -218,7 +218,7 @@ exports.forgotPassword = async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
 
         if (!user) {
-            res.status(404).json({
+            return res.status(404).json({
                 status: 'User does not exist',
             });
         }

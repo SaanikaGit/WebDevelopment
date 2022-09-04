@@ -1,1 +1,2 @@
-When adding a new product - current logged in user is automatically added as a vendor
+1) When adding a new product - current logged in user should be automatically added as a vendor
+2) Error encountered when you logout after JWT expires - need to resolve this....

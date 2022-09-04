@@ -66,7 +66,7 @@ exports.logout = async (req, res) => {
     res.cookie('jwt', 'logout', {
         expires: new Date(Date.now() + 5000),
         httpOnly: true,
-        path: '/',
+        path: '/'
     });
     res.locals.user = undefined;
     console.log('Deleted cookie');
@@ -86,15 +86,42 @@ exports.logout = async (req, res) => {
 };
 
 exports.signUp = async (req, res) => {
-    console.log('In SignUp MOdule');
+    console.log('In SignUp Module');
     res.status(200).render('signUp', {
         title: 'Sign Up',
     });
 };
 
 exports.userDetails = async (req, res) => {
-    console.log('In user details');
-    res.status(200).render('me', {
+    if ( !req.params.subRoute) {
+        req.params.subRoute = 'Settings';
+    }
+    console.log('In user details[' + req.params.subRoute + ']');
+    console.log( res.locals.user.email);
+
+    // Get all products by the person as a vendor
+    const userProducts = await Product.aggregate([
+        {
+            // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
+            $unwind: '$vendors',
+        },
+        {
+            $match: {
+                'vendors.vemail': res.locals.user.email,
+            },
+        },
+    ]);
+    console.log( userProducts.length)
+    for ( ctr = 0; ctr < userProducts.length; ctr++ ){
+        console.log( userProducts[ctr])
+
+    }
+
+    res.status(200).render('mySettings', {
         title: 'Me',
+        user: res.locals.user,
+        subRoute : req.params.subRoute,
+        userProducts : userProducts,
     });
+    console.log('after user details');
 };

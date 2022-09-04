@@ -132,6 +132,25 @@
     color: red;
 }
 
+.settingsNav ul {
+    overflow: auto;
+}
+
+.settingsNav li {
+    float: left;
+    list-style: none;
+    text-decoration: none;
+    margin: 10px 15px;
+}
+
+.settingsNav li a {
+    text-decoration: none;
+}
+
+.settingsNav li a:hover {
+    color: red;
+}
+
   
 table {
     width: 100%;
@@ -167,4 +186,19 @@ td {
 
 .inputCheck:focus:invalid{
     border-bottom: 5px solid red;
+}
+
+.leftOfPageMenu{
+    /* WIDTH oppucpies 47% of available WIDTH */
+    width: 70%;
+    /* THIS item floats towards the left */
+    /* float: left; */
+    border: 1px solid black;
+}
+.rightOfPage{
+    /* WIDTH oppucpies 47% of available WIDTH */
+    width: 70%;
+    /* THIS item floats towards the left */
+    /* float: right; */
+    border: 1px solid black;
 }

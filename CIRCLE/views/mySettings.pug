@@ -7,6 +7,7 @@ block content
                 l1: a(href= '/me/Settings' ) Settings
                 li: a(href= '/me/MyBids' ) My Bids
                 li: a(href= '/me/MyProducts' ) My Products
+                li: a(href= '/me/AddProduct' ) Add a Product
     .rightOfPage
         form.meSettings
             //- h5= `Input paramater1 [ ${title}]`
@@ -22,13 +23,13 @@ block content
                 h5= `Input paramater3 [ ${subRoute}]`
                 h3= `Your Name : ${user.name}` 
                 h3= `Email Address : ${user.email}` 
-                label( for='password') Old Password 
+                label( for='password') Current Password 
                 input#oldPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
                 br
                 label( for='password') New Password 
                 input#newPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
                 br
-                label( for='passwordConfirm') Confirm Password 
+                label( for='passwordConfirm') Confirm New Password 
                 input#newPasswordConfirm.inputCheck(type='password', placeholder='********', required, minlength='8')
                 br
                 button Change Password 
@@ -83,3 +84,26 @@ block content
                             td #{categoryn}
                             td #{grade}
                             td #{bidDate}
+            else if ( subRoute === 'AddProduct' )
+                hr
+                h3 Please provide new product details 
+                //- h5= `Input paramater3 [ ${subRoute}]`
+                //- h3= `Your Name : ${user.name}` 
+                //- h3= `Email Address : ${user.email}` 
+                label( for='newProductName') Product Name 
+                input#productName.inputCheck(type='text', placeholder='Enter New Product Name', required)
+                br
+                label( for='newProductCategory') Category 
+                input#newProductCategory.inputCheck(type='text', placeholder='Enter Product Category', required)
+                br
+                label( for='newProductSubject') Subject 
+                input#newProductSubject.inputCheck(type='text', placeholder='Subject', required)
+                br
+                label( for='newProductGrade') Grade 
+                input#newProductGrade.inputCheck(type='text', placeholder='Grade', required)
+                br
+                label( for='newProductImage') Product Image 
+                input#newProductImage.inputCheck(type='file')
+                br
+                button Create Product 
+                br

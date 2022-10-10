@@ -212,6 +212,49 @@ exports.isLoggedIn = async (req, res, next) => {
     next();
 };
 
+exports.loggedInUserRoute = async (req, res, next) => {
+    let token = '';
+    // grab token from cookie
+    if (req.cookies.jwt) {
+        token = req.cookies.jwt;
+
+        // Validate token
+        const decoded = await promisify(jwt.verify)(
+            token,
+            process.env.JWT_SECRET
+        );
+        // console.log('Decoded [', decoded, ']');
+
+        // Check if user still exists...
+        const tokenUser = await User.findById(decoded.id);
+        if (!tokenUser) {
+            return res.status(500).json({
+                status: 'User does not exist. Please log in Again. ',
+            });
+        }
+
+        // check if user changed password after token was issued
+        if (tokenUser.passwordChangedAfterToken(decoded.iat)) {
+            return res.status(500).json({
+                status: 'User password changed. Please log in Again. ',
+            });
+        }
+
+        // There is a logged in user...
+        // RES.LOCALS can be used to store any program variables and they are available in all PUG templates
+
+        res.locals.user = tokenUser;
+        // console.log(req.user);
+        return next();
+    } else {
+        return res.status(500).json({
+            status: 'Please log in.',
+            message: 'NO JWT->' + err,
+            stack: err.stack,
+        });
+    }
+};
+
 exports.forgotPassword = async (req, res, next) => {
     try {
         // Get user based on posted email

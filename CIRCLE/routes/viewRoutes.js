@@ -12,6 +12,6 @@ router.get('/products/:id', viewController.getProduct);
 router.get('/login', viewController.loginForm);
 router.get('/logout', viewController.logout);
 router.get('/signUp', viewController.signUp);
-router.get('/me/:subRoute?', viewController.userDetails);
+router.get('/me/:subRoute?', authController.loggedInUserRoute, viewController.userDetails);
 
 module.exports = router;

@@ -165,6 +165,9 @@ exports.getProduct = async (req, res, next) => {
 
 exports.createProduct = async (req, res, next) => {
     try {
+        console.log('trying to create product' + req.name);
+        // console.log(req);
+
         const newProduct = await Product.create(req.body);
 
         res.status(201).json({
@@ -174,6 +177,7 @@ exports.createProduct = async (req, res, next) => {
             },
         });
     } catch (err) {
+        console.log(err);
         next(new AppError('Invalid Create Product Data Sent-> ' + err, 400));
     }
 };
@@ -242,6 +246,39 @@ exports.addProductVendor = async (req, res, next) => {
         next(new AppError('Invalid AddVendorProduct Data Sent-> ' + err, 400));
     }
 };
+
+exports.addProductVendorInternal = async (req, res, next) => {
+    try {
+        console.log('Add Product Vendor Internal called');
+        // Fill data from request
+        let newVendor = {
+            vname: req.body.vname,
+            vemail: req.body.vemail,
+            datePurchased: req.body.datePurchased,
+            condition: req.body.condition,
+            costPrice: req.body.costPrice,
+            sellingPrice: req.body.sellingPrice,
+            sold: req.body.sold,
+        };
+
+        // console.log( 'New Vendor for Product');
+        console.log('New Vendor - ', newVendor);
+        product = await Product.findByIdAndUpdate(req.body.prodId, {
+            $push: { vendors: newVendor },
+        });
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Product Vendor Added',
+            // data: {
+            //     product,
+            // },
+        });
+    } catch (err) {
+        next(new AppError('Invalid AddVendorProduct Data Sent-> ' + err, 400));
+    }
+}
+
 
 // Need to check if logged in user has a product...
 exports.dropProductVendor = async (req, res, next) => {

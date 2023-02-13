@@ -22,13 +22,13 @@ const productSchema = new mongoose.Schema({
         required: [true, 'A Product must have a Grade'],
         trim: true,
     },
-    isbn: {
-        type: String,
-        trim: true,
-    },
     imageCover: {
         type: String,
         required: [true, 'A Product must have a cover image'],
+    },
+    isbn: {
+        type: String,
+        trim: true,
     },
     vendors: [
         {
@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
             vendorImage: String,
             listingDate: {
                 type: Date,
-                default: Date.now(),
+                default: Date.now,
             },
             requested: Boolean,
             sold: Boolean,

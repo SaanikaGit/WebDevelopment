@@ -11,10 +11,10 @@ block content
     .rightOfPage
         form.meSettings
             //- h5= `Input paramater1 [ ${title}]`
-            h5= `Input paramater2 [${user}]`
-            hr
-            h5= `Vendor Products [${userProducts.length}]`
-            h5= `Vendor Products [${userProducts[0].vendors}]`
+            //- h5= `Input paramater2 [${user}]`
+            //- hr
+            //- h5= `Vendor Products [${userProducts.length}]`
+            //- h5= `Vendor Products [${userProducts[0].vendors}]`
             hr
             //- h5= `Input paramater3 [ ${subRoute}]`
             //- hr
@@ -85,25 +85,26 @@ block content
                             td #{grade}
                             td #{bidDate}
             else if ( subRoute === 'AddProduct' )
-                hr
-                h3 Please provide new product details 
-                //- h5= `Input paramater3 [ ${subRoute}]`
-                //- h3= `Your Name : ${user.name}` 
-                //- h3= `Email Address : ${user.email}` 
-                label( for='newProductName') Product Name 
-                input#productName.inputCheck(type='text', placeholder='Enter New Product Name', required)
-                br
-                label( for='newProductCategory') Category 
-                input#newProductCategory.inputCheck(type='text', placeholder='Enter Product Category', required)
-                br
-                label( for='newProductSubject') Subject 
-                input#newProductSubject.inputCheck(type='text', placeholder='Subject', required)
-                br
-                label( for='newProductGrade') Grade 
-                input#newProductGrade.inputCheck(type='text', placeholder='Grade', required)
-                br
-                label( for='newProductImage') Product Image 
-                input#newProductImage.inputCheck(type='file')
-                br
-                button Create Product 
-                br
+                form.meSettingsAddProduct
+                    hr
+                    h3 Please provide new product details 
+                    //- h5= `Input paramater3 [ ${subRoute}]`
+                    //- h3= `Your Name : ${user.name}` 
+                    //- h3= `Email Address : ${user.email}` 
+                    label( for='newProductName') Product Name 
+                    input#productName.inputCheck(type='text', placeholder='Enter New Product Name', required)
+                    br
+                    label( for='newProductCategory') Category 
+                    input#newProductCategory.inputCheck(type='text', placeholder='Enter Product Category...', required)
+                    br
+                    label( for='newProductSubject') Subject 
+                    input#newProductSubject.inputCheck(type='text', placeholder='Subject', required)
+                    br
+                    label( for='newProductGrade') Grade 
+                    input#newProductGrade.inputCheck(type='text', placeholder='Grade', required)
+                    br
+                    label( for='newProductImage') Product Image 
+                    input#newProductImage.inputCheck(type='file')
+                    br
+                    button Create Product 
+                    br

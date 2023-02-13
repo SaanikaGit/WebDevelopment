@@ -11,7 +11,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 router.patch(
     '/updateMyPassword',
     authController.validateToken,
-    authController.updateMyPassword
+    authController.updateMyPasswordAxios
 );
 router.patch(
     '/updateMe',

@@ -9,9 +9,14 @@ router.use(authController.isLoggedIn);
 
 router.get('/', viewController.getOverview);
 router.get('/products/:id', viewController.getProduct);
+router.get('/products/vendor/:id', viewController.addProductVendor, viewController.getProduct);
+router.get('/products/:pid/:uid', viewController.addUserBid, viewController.settingsMyStuff);
 router.get('/login', viewController.loginForm);
 router.get('/logout', viewController.logout);
 router.get('/signUp', viewController.signUp);
-router.get('/me/:subRoute?', authController.loggedInUserRoute, viewController.userDetails);
+router.get('/meAddProduct', authController.loggedInUserRoute, viewController.settingsAddProduct);
+router.get('/meChangePassword', authController.loggedInUserRoute, viewController.settingsChangePassword);
+router.get('/meMyStuff', authController.loggedInUserRoute, viewController.settingsMyStuff);
+// router.get('/me', authController.loggedInUserRoute, viewController.userDetails);
 
 module.exports = router;

@@ -1,4 +1,4 @@
 Bootcamp/
-CIRCLE/node_modules/
+CIRCLE/node_modules/*
 CIRCLE/public/img/
 CIRCLE/.cache/

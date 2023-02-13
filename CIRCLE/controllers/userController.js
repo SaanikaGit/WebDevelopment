@@ -168,7 +168,7 @@ exports.addUserBid = async (req, res) => {
         //     req.params.id,
         //     ']'
         // );
-
+        console.log('trying to add user bid');
         // Find product by ID
         const product = await Product.findById(req.params.id);
 

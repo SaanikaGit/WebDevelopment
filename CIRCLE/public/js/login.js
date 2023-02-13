@@ -57,6 +57,7 @@ document.querySelector('.formLogin').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
+  // alert('logging in from SUBMIT');
     login(email, password);
 });
 

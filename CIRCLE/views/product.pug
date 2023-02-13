@@ -1,14 +1,23 @@
 extends base
 block content 
     .productDetail
+        if user
+            - var myName = `${user.name}`
+            - var myEmail = `${user.email}`
+            - var myId = `${user._id}`
+            p#myName.doNotDisplay= myName
+            p#myEmail.doNotDisplay= myEmail 
+            p#myId.doNotDisplay= myId 
         h1= `This is the product detail page for ${product.name}`
         img.imgFormat( src=`/img/products/${product.imageCover}` alt=`${product.name}`)
         ul.bookDetails
             li= `Grade : ${product.grade}`
             li= `Subject : ${product.subject}`
             li= `No. of Vendors : ${product.vendors.length}`
+            - var productId = `${product._id}`
             #vendorDetails
                 h3 Vendor Details
+                - var myProduct = false
                 //- - var currentVendor = 0
                 - var totalVendors = `${product.vendors.length}`
                 table 
@@ -20,6 +29,7 @@ block content
                         th Click to Bid
                     - for( currentVendor = 0; currentVendor < totalVendors; currentVendor++ )
                         - var vendor = `${product.vendors[currentVendor].vname}`
+                        - var vendorEmail = `${product.vendors[currentVendor].vemail}`
                         - var sp = `${product.vendors[currentVendor].sellingPrice}`
                         - var condition = `${product.vendors[currentVendor].condition}`
                         - var sold = `${product.vendors[currentVendor].sold}`
@@ -28,5 +38,43 @@ block content
                             td #{sp} 
                             td #{condition}
                             td #{sold}
-                            td 
-                                a(href= vendor ) Bid
+                            td
+                                if !user
+                                    a(href= '' ) Login to Bid on this item
+                                else 
+                                    if vendorEmail === myEmail
+                                        a(href= '' ) Cannot Bid on your own item
+                                        - myProduct = true
+                                    else
+                                        a(href= `/products/${productId}/${user._id}` ) Bid
+                                br
+                if !myProduct
+                    form.addMeAsVendor
+                        br
+                        br
+                        hr
+                        p#productId.doNotDisplay= productId
+                        h3 Please provide some additional details if you want to sell this product 
+                        //- h5#myNameIs #{myName}
+                        label( for='newProductCondition') Condition       :  
+                        select(name='condition', id='newProductCondition')
+                            option(value='Brand New') Brand New
+                            option(value='Hardly Used') Hardly Used
+                            option(value='Gently Used') Gently Used
+                            option(value='Heavily Used') Heavily Used
+                        br
+                        br
+                        label( for='newProductCostPrice') Price you paid for this product   : 
+                        input#newProductCostPrice.inputCheck(type='number', placeholder='0', required)
+                        br
+                        br
+                        label( for='newProductPurchaseDate') When did you but this product   : 
+                        input#newProductPurchaseDate.inputCheck(type='date')
+                        br
+                        br
+                        label( for='newProductSellingPrice') Price you expect for this product   : 
+                        input#newProductSellingPrice.inputCheck(type='number', placeholder='0', required)
+                        br
+                        br
+                        button Click to sell this product
+                        hr

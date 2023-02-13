@@ -1,0 +1,204 @@
+.boxSection {
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 10px 10px;
+    display: inline-block;
+}
+
+.boxIMG {
+    border: 1px solid black;
+    float: left;
+    list-style: none;
+    margin: 5px;
+}
+
+.imgFormat {
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    padding: 5px 5px;
+    width: 150px;
+    height: 200px;
+    /* float: left; */
+}
+
+.bookDetails {
+    list-style: none;
+    padding: 5px;
+}
+
+#navSearch {
+    margin-left: 50px;
+}
+
+#justAdded {
+    background-color: bisque;
+    transition-duration: 5s;
+    
+}
+
+#freeBooksAndNotes {
+    background-color: cadetblue;
+    transition-duration: 2s;
+}
+
+#neverUsedBefore {
+    background-color: darkkhaki;
+    transition-duration: 2s;
+}
+
+.navBar {
+    border: 2px solid black;
+    display: inline-block;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stickyHeader {
+    position: sticky;
+    top: 0;
+    background-color: whitesmoke;
+}
+
+#navSearch {
+    background-color: rgb(196, 237, 237);
+    transition-duration: 5s;
+}
+
+.leftOfNav {
+    /* border: 2px solid black; */
+    float: left;
+    margin: 5px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.formatUser{
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 10px 10px;
+    /* padding-bottom: 70px; */
+    /* text-align: left; */
+    font-size: 30px;
+}
+
+.midMainNav {
+    /* display: inline-block; */
+    /* display: flex; */
+    margin: 5px;
+    /* border: 1px solid black; */
+    clear: both;
+    justify-content: center;
+}
+
+.rightOfNav {
+    /* display: inline-block; */
+    /* border: 2 px solid black; */
+    float: right;
+    margin: 5px;
+}
+
+.navCTA {
+    padding-top: 15px;
+    padding-right: 15px;
+}
+
+/* Transformation */
+.navHelp{
+    transition: all 0.5s ease-in-out;
+}
+.navHelp:hover {
+    transform: rotate(360deg);
+}
+
+
+.midMainNav ul {
+    overflow: auto;
+}
+
+.midMainNav li {
+    float: left;
+    list-style: none;
+    text-decoration: none;
+    margin: 10px 15px;
+}
+
+.midMainNav li a {
+    text-decoration: none;
+}
+
+.midMainNav li a:hover {
+    color: red;
+}
+
+.settingsNav ul {
+    overflow: auto;
+}
+
+.settingsNav li {
+    float: left;
+    list-style: none;
+    text-decoration: none;
+    margin: 10px 15px;
+}
+
+.settingsNav li a {
+    text-decoration: none;
+}
+
+.settingsNav li a:hover {
+    color: red;
+}
+
+  
+table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 8px;
+}
+  
+th {
+    background-color: #a5b1c2;
+    text-align: left;
+    text-transform: capitalize;
+    border: 1px solid black;
+    color: black;
+}
+
+td {
+    text-align: left;
+    text-transform: capitalize;
+    border: 1px solid black;
+    color: black;
+}
+  
+.inputCheck{
+    border: 1px solid black;
+    padding : 10px 5 px;
+
+}
+
+.inputCheck:focus{
+    border-bottom: 5px solid green;
+}
+
+.inputCheck:focus:invalid{
+    border-bottom: 5px solid red;
+}
+
+.leftOfPageMenu{
+    /* WIDTH oppucpies 47% of available WIDTH */
+    width: 70%;
+    /* THIS item floats towards the left */
+    /* float: left; */
+    border: 1px solid black;
+}
+.rightOfPage{
+    /* WIDTH oppucpies 47% of available WIDTH */
+    width: 70%;
+    /* THIS item floats towards the left */
+    /* float: right; */
+    border: 1px solid black;
+}

@@ -1,0 +1,6 @@
+1) When adding a new product - current logged in user should be automatically added as a vendor
+2) Error encountered when you logout after JWT expires - need to resolve this....
+3) Need to implement protect, that is similar to isLoggedIn but gives out specific errors...
+4) Make VendorName unique in USER Model
+5) MySettings page craps out if user has no products - CHECK
+6) clicking on BID craps out if user not logged in.. FInal error coming from getProduct

@@ -1,0 +1,95 @@
+extends base
+block content 
+    .leftOfPageMenu
+        h2 Add New product- Please provide new product details 
+        form.meSettingsAddProduct
+            label( for='newProductName') Product Name 
+            input#productName.inputCheck(type='text', placeholder='Enter New Product Name', required)
+            br
+            label( for='newProductCategory') Category 
+            input#newProductCategory.inputCheck(type='text', placeholder='Enter Product Category', required)
+            br
+            label( for='newProductSubject') Subject 
+            input#newProductSubject.inputCheck(type='text', placeholder='Subject', required)
+            br
+            label( for='newProductGrade') Grade 
+            input#newProductGrade.inputCheck(type='text', placeholder='Grade', required)
+            br
+            label( for='newProductImage') Product Image 
+            input#newProductImage.inputCheck(type='file')
+            br
+            button Create Product 
+            br
+            br
+    .leftOfPageMenu
+        h2 Change password 
+        form.meSettingsChgPasswd
+            h3= `Your Name : ${user.name}` 
+            h3= `Email Address : ${user.email}` 
+            label( for='password') Current Password 
+            input#oldPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
+            br
+            label( for='password') New Password 
+            input#newPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
+            br
+            label( for='passwordConfirm') Confirm New Password 
+            input#newPasswordConfirm.inputCheck(type='password', placeholder='********', required, minlength='8')
+            br
+            button Change Password 
+            br
+            br
+            br
+    .leftOfPageMenu
+        h2 My Product Listing 
+        form.meSettingsMyProducts
+            - var totalProducts = `${userProducts.length}`
+            table 
+                tr
+                    th Product Name
+                    th Subject
+                    th Category
+                    th Grade
+                    th ISBN 
+                    th Link 
+                - for( currentProduct = 0; currentProduct < totalProducts; currentProduct++ )
+                    - var productName = `${userProducts[currentProduct].name}`
+                    - var subject = `${userProducts[currentProduct].subject}`
+                    - var category = `${userProducts[currentProduct].category}`
+                    - var grade = `${userProducts[currentProduct].grade}`
+                    - var ISBN = `${userProducts[currentProduct].isbn}`
+                    - var id = `${userProducts[currentProduct]._id}`
+                    tr
+                        td #{productName}
+                        td #{subject} 
+                        td #{categoryn}
+                        td #{grade}
+                        td #{ISBN}
+                        td 
+                            a(href= `/products/${id}` ) Product Detail
+            br
+            br
+    .leftOfPageMenu
+        h2 My Product Bids 
+        form.meSettingsMyBids
+            - var totalBids = `${user.myBidItems.length}`
+            table 
+                tr
+                    th Product Name
+                    th Subject
+                    th Category
+                    th Grade
+                    th Bid Date 
+                - for( currentBid = 0; currentBid < totalBids; currentBid++ )
+                    - var productName = `${user.myBidItems[currentBid].itemName}`
+                    - var subject = `${user.myBidItems[currentBid].subject}`
+                    - var category = `${user.myBidItems[currentBid].category}`
+                    - var grade = `${user.myBidItems[currentBid].grade}`
+                    - var bidDate = `${user.myBidItems[currentBid].bidDate}`
+                    tr
+                        td #{productName}
+                        td #{subject} 
+                        td #{categoryn}
+                        td #{grade}
+                        td #{bidDate}
+            br
+            br

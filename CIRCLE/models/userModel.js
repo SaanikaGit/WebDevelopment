@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
 
     name: {
         type: String,
+        unique: true,
         required: [true, 'A User must have a Name'],
         trim: true,
     },
@@ -49,11 +50,11 @@ const userSchema = new mongoose.Schema({
     },
     dateCreated: {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
     },
     lastLogin: {
         type: Date,
-        default: Date.now(), 
+        default: Date.now, 
     },
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -67,7 +68,7 @@ const userSchema = new mongoose.Schema({
             image: String,
             bidDate: {
                 type: Date,
-                default: Date.now(),
+                default: Date.now,
             },
         },
     ],
@@ -120,7 +121,7 @@ userSchema.methods.getPasswordResetToken = function () {
         .digest('hex');
 
     //  Expires in 20 minutes
-    this.passwordResetExpires = Date.now() + 20 * 60 * 1000;
+    this.passwordResetExpires = Date.now + 20 * 60 * 1000;
 
     console.log({ resetToken }, this.passwordResetToken);
     //Return unencrypted token via email...

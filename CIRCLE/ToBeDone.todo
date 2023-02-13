@@ -1,0 +1,43 @@
+Genral:
+=======
+✔ 1) When adding a new product - current logged in user should be automatically added as a vendor @done (30/1/2023, 12:39:37 pm)
+☐ 2) Error encountered when you logout after JWT expires - need to resolve this....
+☐ 3) Need to implement "protect", that is similar to isLoggedIn but gives out specific errors...
+✔ 4) Make VendorName unique in USER Model @done (20/1/2023, 10:23:47 am)
+☐ 5) MySettings page craps out if user has no products
+☐ 6) clicking on BID craps out if user not logged in.. Final error coming from getProduct 
+✔ 7) My Settings - 'change password' page to be coded @done (9/2/2023, 7:39:14 pm)
+✔ 8) My Settings - 'my products and bids' page to be coded @done (1/2/2023, 4:13:26 pm)
+✔ 9) Latest BID getting recorded in DB but not showing on page - maybe we are displaying old cached info @done (2/13/2023, 11:02:28 AM)
+☐ 10) Check in entire tree into GIT
+✔ 11) How can I becoe a vendor of an already listed product - need a link on the PRODUCT detail page... @done (2/13/2023, 1:41:38 PM)
+
+
+Criterion A:
+=============
+☐ 1) Forgot Password with email option
+☐ 2) After user place a bid, email needs to go out to vendor
+☐ 3) Edit product information ???
+☐ 4) Forgot Password with email option
+☐ 5) Sort available vendors by price
+☐ 6) Search for products
+☐ 7) view products by categories(grade,subject,category)
+☐ 8)
+
+
+Criterion B:
+============
+☐ 1) sort all products by price, with free products on top
+☐ 2)
+
+
+
+
+
+
+
+
+
+File Status :
+- Models/userModel.js : Task #4
+- Models/productModel.js : 

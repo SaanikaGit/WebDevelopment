@@ -1,0 +1,26 @@
+doctype html 
+html 
+    head 
+        block head
+            meta(charset='UTF-8')
+            meta(http-equiv='X-UA-Compatible' content='IE=edge')
+            meta(name='viewport' content='width=device-width, initial-scale=1.0')
+            link(rel='stylesheet' href='/css/circle.css')
+            link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
+            title Circle  | #{title}
+    body 
+        // HEADER
+        include _header
+
+        // CONTENT
+        block content 
+            h1 This is a placeholder..
+            
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js')
+        script(type='text/javascript', src='/js/login.js')
+        script(type='text/javascript', src='/js/signUp.js')
+        script(type='text/javascript', src='/js/user.js')
+        //- script(type='text/javascript', src='/js/bundle.js')
+
+//- script(type='text/javascript', src='https://unpkg.com/axios/dist/axios.min.js')
+//- script(type='text/javascript', src='/js/axios.js')

@@ -56,10 +56,11 @@ exports.signup = async (req, res, next) => {
 
         createTokenSendJwt(newUser, 201, res);
     } catch (err) {
-        res.status(400).json({
-            status: 'failed to create user',
-            message: 'Invalid Data Sent->' + err,
-        });
+        console.log(err);
+        // res.status(400).json({
+        //     status: 'failed to create user',
+        //     message: 'Invalid Data Sent->..' + err,
+        // });
     }
 };
 
@@ -119,6 +120,7 @@ exports.logoutOld = (req, res, next) => {
 exports.validateToken = async (req, res, next) => {
     try {
         let token = '';
+        console.log('Validate TOken #0...')
         // Check if token exists
         if (
             req.headers.authorization &&
@@ -128,7 +130,7 @@ exports.validateToken = async (req, res, next) => {
         } else if (req.cookies.jwt) {
             token = req.cookies.jwt;
         }
-
+        console.log('Validate TOken #1...')
         if (!token) {
             res.status(401).json({
                 status: 'You are not logged in.',
@@ -244,6 +246,7 @@ exports.loggedInUserRoute = async (req, res, next) => {
         // RES.LOCALS can be used to store any program variables and they are available in all PUG templates
 
         res.locals.user = tokenUser;
+        
         // console.log(req.user);
         return next();
     } else {
@@ -386,6 +389,53 @@ exports.updateMyPassword = async (req, res, next) => {
         res.status(401).json({
             status: 'Something went wrong',
             message: 'updatePassword->' + err,
+            stack: err.stack,
+        });
+    }
+};
+
+exports.updateMyPasswordAxios = async (req, res, next) => {
+    try {
+        console.log('updatePasswordAxios Called');
+        console.log(req.body);
+        console.log('========================================')
+        // Validate User
+        // Done in alildateToken middleware, that is called before current function...
+        // const user = await User.findById(req.body.name).select('+password');
+        const user = await User.findOne({ email:req.body.email }).select('+password');
+        // console.log({ user });
+        console.log('User FOund');
+
+        // console.log( user.password);
+        // console.log( req.body.currPassword);
+
+        console.log(req.body.currPass);
+        // Validate current password
+        if (
+            !req.body.curPass ||
+            !(await user.passowrdMatches(req.body.curPass, user.password))
+        ) {
+            return res.status(400).json({
+                status: 'FAILED',
+                message: 'Incorrect Password given',
+            });
+        }
+
+        console.log('curr password OK...');
+        // update password
+        user.password = req.body.newPass;
+        user.passwordConfirm = req.body.newPassConfirm;
+        user.passwordChangedAt = Date.now();
+
+        await user.save();
+
+        // 4)Login user and send JWT
+        createTokenSendJwt(user, 200, res);
+    } catch (err) {
+        console.log(err);
+        res.status(401).json({
+            status: 'Something went wrong',
+            message: 'updatePasswordAxios->' + err,
             stack: err.stack,
         });
     }

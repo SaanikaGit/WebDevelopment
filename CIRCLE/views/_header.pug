@@ -18,11 +18,20 @@ header.stickyHeader
             //- img.navCTA.navHelp(src='/img/circle/outline_help_outline_black_48dp.png' alt='' )
             //- local variable defined in 'isLoggedIn' function...
             if user
-                a(href='/me')
-                    span.formatUser= user.name.split(' ')[0]
-                    //- img.navCTA.ctaMenu(src='/img/circle/me.png' alt='')
-                a(href='/logout')
-                    img.navCTA.ctaMenu(src='/img/circle/logout.png' alt='')
+                .loggedInUser
+                    a(href='')
+                        span.formatUser= user.name.split(' ')[0]
+                        .dropDownContent
+                            ul
+                                li
+                                    a(href="/meAddProduct") Add Product 
+                                li 
+                                    a(href="/meChangePassword") Change Password
+                                li 
+                                    a(href="/meMyStuff") My Products & Bids
+                        //- img.navCTA.ctaMenu(src='/img/circle/me.png' alt='')
+                    a(href='/logout')
+                        img.navCTA.ctaMenu(src='/img/circle/logout.png' alt='')
             else
                 a(href='/login')
                     img.navCTA#ctaLogin(src='/img/circle/login.png' alt='') 

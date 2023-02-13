@@ -19,6 +19,9 @@ router
 
 router.route('/get-all-free').get(productController.getAllFree);
 
+router.post('/create', productController.createProduct);
+router.post('/addVendor', productController.addProductVendorInternal);
+
 router
     .route('/vendor/:id')
     .put(authController.validateToken, productController.addProductVendor)

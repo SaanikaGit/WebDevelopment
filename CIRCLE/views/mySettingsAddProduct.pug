@@ -1,0 +1,68 @@
+extends base
+block content 
+    .leftOfPageMenu
+        h2 Add New product- Please provide product details
+        - let myName = `${user.name}`
+        - let myEmail = `${user.email}`
+        form.meSettingsAddProduct
+            label( for='newProductName') Product Name   : 
+            input#productName.inputCheck(type='text', placeholder='Enter New Product Name', required)
+            br
+            br
+            label( for='newProductCategory') Category       :      
+            //- input#newProductCategory.inputCheck(type='text', placeholder='Enter Product Category', required)
+            select(name='category', id='newProductCategory')
+                option(value='Textbook') Textbook
+                option(value='Notes') Notes
+                option(value='Calculators') Calculators
+                option(value='Supplies') Supplies
+            br
+            br
+            label( for='newProductSubject') Subject       :  
+            input#newProductSubject.inputCheck(type='text', placeholder='Subject', required)
+            br
+            br
+            label( for='newProductGrade') Grade         :  
+            //- input#newProductGrade.inputCheck(type='text', placeholder='Grade', required)
+            select(name='grade', id='newProductGrade')
+                option(value='DP') DP
+                option(value='MYP5') MYP5
+                option(value='MYP4') MYP4
+                option(value='MYP3') MYP3
+                option(value='MYP2') MYP2
+                option(value='MYP1') MYP1
+                option(value='EYP') EYP
+            br
+            br
+            label( for='newProductImage') Product Image : 
+            input#newProductImage.inputCheck(type='file')
+            br
+            br
+            hr
+            h3 Please provide some additional details about your product 
+            //- h5#myNameIs #{myName}
+            p#myName.doNotDisplay= myName
+            p#myEmail.doNotDisplay= myEmail 
+            label( for='newProductCondition') Condition       :  
+            select(name='condition', id='newProductCondition')
+                option(value='Brand New') Brand New
+                option(value='Hardly Used') Hardly Used
+                option(value='Gently Used') Gently Used
+                option(value='Heavily Used') Heavily Used
+            br
+            br
+            label( for='newProductCostPrice') Price you paid for this product   : 
+            input#newProductCostPrice.inputCheck(type='number', placeholder='0', required)
+            br
+            br
+            label( for='newProductPurchaseDate') When did you but this product   : 
+            input#newProductPurchaseDate.inputCheck(type='date')
+            br
+            br
+            label( for='newProductSellingPrice') Price you expect for this product   : 
+            input#newProductSellingPrice.inputCheck(type='number', placeholder='0', required)
+            br
+            br
+            button Create Product 
+            br
+            br

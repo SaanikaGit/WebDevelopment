@@ -1,0 +1,24 @@
+extends base
+block content 
+    .leftOfPageMenu
+        a(href= Settings ) Settings
+        a(href= My Bids ) My Bids
+        a(href= My Products ) My Products
+    .rightOfPage
+        form.meSettings
+            h1 My Settings
+            br
+            br
+            h3= Your Name 
+            br
+            h3= Email Address 
+            br
+            label( for='password') Password 
+            input#signUpPassword.inputCheck(type='password', placeholder='********', required, minlength='8')
+            br
+            br
+            label( for='passwordConfirm') Confirm Password 
+            input#signUpPasswordConfirm.inputCheck(type='password', placeholder='********', required, minlength='8')
+            br
+            br
+            button Change Password 

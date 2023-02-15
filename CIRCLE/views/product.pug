@@ -48,7 +48,7 @@ block content
                                     else
                                         a(href= `/products/${productId}/${user._id}` ) Bid
                                 br
-                if !myProduct
+                if user && !myProduct
                     form.addMeAsVendor
                         br
                         br

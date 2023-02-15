@@ -25,6 +25,69 @@ exports.getOverview = async (req, res, next) => {
     }
 };
 
+exports.getOverviewCategory = async (req, res, next) => {
+    try {
+        // 1. Get all Product data from DB
+        const products = await Product.find({category: req.params.cat});
+
+        // 2. Build Template
+
+        // 3. Populate and render Template
+
+        // res.status(400).render('sampleTable', {
+        //     title: 'sampleTable',
+        // });
+        res.status(400).render('overview', {
+            title: 'All Products',
+            products,
+        });
+    } catch (err) {
+        next(new AppError('Unable to GET product info-> ' + err, 400));
+    }
+};
+
+exports.getOverviewGrade = async (req, res, next) => {
+    try {
+        const products = await Product.find({grade: {$regex: new RegExp(req.params.grd,'i' )}});
+        res.status(400).render('overview', {
+            title: 'All Products',
+            products,
+        });
+
+        // if( req.params.grd === 'DP') {
+        //     console.log('looking for all DP stuff...');
+        //     // const products = await Product.find({$or: [
+        //     //          {grade: 'DP'},
+        //     //          {grade: 'DP1'},
+        //     //          {grade: 'DP2'},
+        //     //      ]});
+        //         res.status(400).render('overview', {
+        //             title: 'All Products',
+        //             products,
+        //         });
+        // }
+        // else {
+        //     console.log('looking for all MYP stuff...');
+        //     const products = await Product.find({$or: [
+        //                                         {grade: 'MYP'},
+        //                                         {grade: 'MYP1'},
+        //                                         {grade: 'MYP2'},
+        //                                         {grade: 'MYP3'},
+        //                                         {grade: 'MYP4'},
+        //                                         {grade: 'MYP5'},
+        //     ]});
+        //     res.status(400).render('overview', {
+        //         title: 'All Products',
+        //         products,
+        //     });
+        // }
+
+
+    } catch (err) {
+        next(new AppError('Unable to GET product info-> ' + err, 400));
+    }
+};
+
 exports.getProduct = async (req, res, next) => {
     try {
         console.log('Get Product #0 [' + req.params.id  + ']')

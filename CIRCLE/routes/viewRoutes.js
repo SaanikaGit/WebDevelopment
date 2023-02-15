@@ -8,6 +8,8 @@ const router = express.Router();
 router.use(authController.isLoggedIn);
 
 router.get('/', viewController.getOverview);
+router.get('/Category/:cat', viewController.getOverviewCategory);
+router.get('/Grade/:grd', viewController.getOverviewGrade);
 router.get('/products/:id', viewController.getProduct);
 router.get('/products/vendor/:id', viewController.addProductVendor, viewController.getProduct);
 router.get('/products/:pid/:uid', viewController.addUserBid, viewController.settingsMyStuff);

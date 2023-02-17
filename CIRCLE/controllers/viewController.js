@@ -7,7 +7,7 @@ const AppError = require('../utils/appError');
 exports.getOverview = async (req, res, next) => {
     try {
         // 1. Get all Product data from DB
-        const products = await Product.find();
+        const products = await Product.find().sort({dateCreated : -1});
 
         // 2. Build Template
 
@@ -25,22 +25,16 @@ exports.getOverview = async (req, res, next) => {
     }
 };
 
-exports.getOverviewTT = async (req, res, next) => {
+exports.getOverviewSearch = async (req, res, next) => {
     try {
-        // 1. Get all Product data from DB
         const searchParam = req.params.searchStr;
+        console.log('final call1[' + searchParam +']');
+
         const products = await Product.find({$or: [
             {name: {$regex: new RegExp(searchParam,'i' )}},
             {subject: {$regex: new RegExp(searchParam,'i' )}}]});
         console.log('search OK found -> [' + products.length + ']');
 
-        // 2. Build Template
-
-        // 3. Populate and render Template
-
-        // res.status(400).render('sampleTable', {
-        //     title: 'sampleTable',
-        // });
         res.status(400).render('overview', {
             title: 'Search Products',
             products,
@@ -53,7 +47,7 @@ exports.getOverviewTT = async (req, res, next) => {
 exports.getOverviewCategory = async (req, res, next) => {
     try {
         // 1. Get all Product data from DB
-        const products = await Product.find({category: req.params.cat});
+        const products = await Product.find({category: req.params.cat}).sort({dateCreated : -1});
 
         // 2. Build Template
 
@@ -73,7 +67,7 @@ exports.getOverviewCategory = async (req, res, next) => {
 
 exports.getOverviewGrade = async (req, res, next) => {
     try {
-        const products = await Product.find({grade: {$regex: new RegExp(req.params.grd,'i' )}});
+        const products = await Product.find({grade: {$regex: new RegExp(req.params.grd,'i' )}}).sort({dateCreated : -1});
         res.status(400).render('overview', {
             title: 'All Products',
             products,
@@ -110,39 +104,6 @@ exports.getOverviewGrade = async (req, res, next) => {
 
     } catch (err) {
         next(new AppError('Unable to GET product info-> ' + err, 400));
-    }
-};
-
-
-exports.getOverviewSearch = async (req, res, next) => {
-    try {
-        const searchParam = 'math';
-        const products = await Product.find({$or: [
-            {name: {$regex: new RegExp(searchParam,'i' )}},
-            {subject: {$regex: new RegExp(searchParam,'i' )}}]});
-        console.log('search OK found -> [' + products.length + ']');
-        res.locals.searchProducts = products;
-        console.log(res.locals.searchProducts);
-        // res.status(200).render('overview', {
-        //     title: 'Search Results',
-        //     products,
-        // });
-        // res.status(200).render('overview', {
-        //     title: 'Search Results',
-        //     products,
-        // });
-        // res.status(400).render('overview', {
-        //     title: 'Search Products',
-        //     products,
-        // });
-
-        res.status(200).json({
-            status: 'success',
-        });
-        
-    } catch (err) {
-        console.log(err);
-        // next(new AppError('Unable to GET product info-> ' + err, 400));
     }
 };
 

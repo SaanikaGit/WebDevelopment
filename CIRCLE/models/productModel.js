@@ -30,6 +30,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    dateCreated: {
+        type: Date,
+        default: Date.now,
+    },
     vendors: [
         {
             vname: String,

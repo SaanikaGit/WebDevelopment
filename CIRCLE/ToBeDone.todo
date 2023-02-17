@@ -19,10 +19,11 @@ Criterion A:
 ☐ 2) After user place a bid, email needs to go out to vendor
 ☐ 3) Edit product information ???
 ☐ 4) Forgot Password with email option
-☐ 5) Sort available vendors by price
-☐ 6) Search for products
+✘ 5) Sort available vendors by price - cannot be done.... @cancelled (2/17/2023, 6:07:09 PM)
+✔ 6) Search for products @done (2/17/2023, 5:53:26 PM)
 ✔ 7) view products by categories(grade,subject,category) @done (2/15/2023, 6:18:51 PM)
 ☐ 8) Display all FREE products
+✔ 9) Sort all avalable products by "dateCreated" @done (2/17/2023, 6:03:55 PM)
 
 
 Criterion B:

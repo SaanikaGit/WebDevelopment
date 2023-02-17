@@ -22,7 +22,7 @@ router.route('/get-all-free').get(productController.getAllFree);
 
 router.post('/create', productController.createProduct);
 router.post('/addVendor', productController.addProductVendorInternal);
-router.get('/searchProducts', viewController.getOverviewSearch);
+// router.get('/searchProducts', viewController.getOverviewSearch);
 
 router
     .route('/vendor/:id')

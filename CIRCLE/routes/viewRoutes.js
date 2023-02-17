@@ -8,11 +8,11 @@ const router = express.Router();
 router.use(authController.isLoggedIn);
 
 router.get('/', viewController.getOverview);
-router.get('/tt/:searchStr', viewController.getOverviewTT);
-router.get('/displaySearch', viewController.displaySearch);
+router.get('/Search/:searchStr', viewController.getOverviewSearch);
+// router.get('/displaySearch', viewController.displaySearch);
 router.get('/Category/:cat', viewController.getOverviewCategory);
 router.get('/Grade/:grd', viewController.getOverviewGrade);
-router.post('/Search', viewController.getOverviewSearch);
+// router.post('/Search/:searchStr', viewController.getOverviewSearch);
 router.get('/products/:id', viewController.getProduct);
 router.get('/products/vendor/:id', viewController.addProductVendor, viewController.getProduct);
 router.get('/products/:pid/:uid', viewController.addUserBid, viewController.settingsMyStuff);

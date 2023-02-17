@@ -8,7 +8,7 @@ block content
             p#myName.doNotDisplay= myName
             p#myEmail.doNotDisplay= myEmail 
             p#myId.doNotDisplay= myId 
-        h1= `This is the product detail page for ${product.name}`
+        h1= `This is the product detail page for [${product.name}]`
         img.imgFormat( src=`/img/products/${product.imageCover}` alt=`${product.name}`)
         ul.bookDetails
             li= `Grade : ${product.grade}`

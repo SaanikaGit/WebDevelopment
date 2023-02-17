@@ -1,6 +1,7 @@
 const express = require('express');
 const productController = require('../controllers/productController');
 const authController = require('../controllers/authController');
+const viewController = require('../controllers/viewController');
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.route('/get-all-free').get(productController.getAllFree);
 
 router.post('/create', productController.createProduct);
 router.post('/addVendor', productController.addProductVendorInternal);
+router.get('/searchProducts', viewController.getOverviewSearch);
 
 router
     .route('/vendor/:id')

@@ -1,13 +1,17 @@
 extends base
 block content 
     .boxSection#justAdded
-        h3.bodyBoxHeading Just Added
+        if title === 'Search Products'
+            h3.bodyBoxHeading Search Results
+        else 
+            h3.bodyBoxHeading Just Added
         .bodyBoxDetails
             each product in products
                 .boxIMG
                     a(href=`/products/${product._id}`)
                         img.imgFormat( src=`/img/products/${product.imageCover}` alt=`${product.name}`)
                     ul.bookDetails
+                        li= `Name : ${product.name}`
                         li= `Grade : ${product.grade}`
                         li= `Subject : ${product.subject}`
                         li= `No. of Vendors : ${product.vendors.length}`

@@ -6,14 +6,17 @@ header.stickyHeader
             a(href='/')
                 img(src='/img/CircleLogo.jpg' alt='')
         //- Middle part of top nav bar that has actual page navigation -->
-        .midMainNav
+        form.midMainNav
             ul 
                 li: a(href='/Category/Textbook') TextBooks
                 li: a(href='/Category/Notes') Notes
                 li: a(href='/Category/Calculators') Calculators
                 li: a(href='/Grade/MYP') MYP
                 li: a(href='/Grade/DP') DP
-                li: input.navSearch(type='text' name='Search' placeholder='Search CIRCLE')
+                //- li: a(href='/SearchTemp') Search
+                li: input#navSearchStr.navSearch(type='text', placeholder='Search CIRCLE')
+                //- li: input#nvcSearchStr.navSearch(type='text', name='Search', placeholder='Search CIRCLE')
+                li: button Search CIRCLE 
         //- Right part of top nav bar that has login and FAQ -->
         .rightOfNav
             //- img.navCTA.navHelp(src='/img/circle/outline_help_outline_black_48dp.png' alt='' )

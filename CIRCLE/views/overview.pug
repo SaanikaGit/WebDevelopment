@@ -1,10 +1,13 @@
 extends base
 block content 
     .boxSection#justAdded
-        if title === 'Search Products'
+        if title === 'Search Results'
             h3.bodyBoxHeading Search Results
         else
-            h3.bodyBoxHeading Just Added
+            if title === 'Free Products'
+                h3.bodyBoxHeading Free Products
+            else
+                h3.bodyBoxHeading Just Added
         .bodyBoxDetails
             each product in products
                 .boxIMG

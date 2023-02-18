@@ -2,12 +2,10 @@ const Product = require('../models/productModel');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 
-
-
 exports.getOverview = async (req, res, next) => {
     try {
         // 1. Get all Product data from DB
-        const products = await Product.find().sort({dateCreated : -1});
+        const products = await Product.find().sort({ dateCreated: -1 });
 
         // 2. Build Template
 
@@ -25,18 +23,51 @@ exports.getOverview = async (req, res, next) => {
     }
 };
 
+exports.getOverviewFreeStuff = async (req, res, next) => {
+    try {
+        console.log('*************Getting All Free items...');
+
+        const freeProducts = await Product.aggregate([
+            {
+                // UNWIND object deconstructs an array object in a document and return the ( (multiple ) document with each array object...
+                $unwind: '$vendors',
+            },
+            {
+                $match: {
+                    'vendors.sellingPrice': 0,
+                },
+            },
+            // {
+            //     $limit: NUM_ITEMS,
+            //     // $limit : 6
+            // },
+        ]);
+        console.log('Free products found -> [' + freeProducts.length + ']');
+        console.log(freeProducts);
+        res.status(200).render('overview', {
+            title: 'Free Products',
+            products: freeProducts,
+        });
+    } catch (err) {
+        next(new AppError('Unable to GET product info-> ' + err, 400));
+    }
+};
+
 exports.getOverviewSearch = async (req, res, next) => {
     try {
         const searchParam = req.params.searchStr;
-        console.log('final call1[' + searchParam +']');
+        console.log('final call1[' + searchParam + ']');
 
-        const products = await Product.find({$or: [
-            {name: {$regex: new RegExp(searchParam,'i' )}},
-            {subject: {$regex: new RegExp(searchParam,'i' )}}]});
+        const products = await Product.find({
+            $or: [
+                { name: { $regex: new RegExp(searchParam, 'i') } },
+                { subject: { $regex: new RegExp(searchParam, 'i') } },
+            ],
+        });
         console.log('search OK found -> [' + products.length + ']');
 
-        res.status(400).render('overview', {
-            title: 'Search Products',
+        res.status(200).render('overview', {
+            title: 'Search Results',
             products,
         });
     } catch (err) {
@@ -47,7 +78,9 @@ exports.getOverviewSearch = async (req, res, next) => {
 exports.getOverviewCategory = async (req, res, next) => {
     try {
         // 1. Get all Product data from DB
-        const products = await Product.find({category: req.params.cat}).sort({dateCreated : -1});
+        const products = await Product.find({ category: req.params.cat }).sort({
+            dateCreated: -1,
+        });
 
         // 2. Build Template
 
@@ -67,7 +100,9 @@ exports.getOverviewCategory = async (req, res, next) => {
 
 exports.getOverviewGrade = async (req, res, next) => {
     try {
-        const products = await Product.find({grade: {$regex: new RegExp(req.params.grd,'i' )}}).sort({dateCreated : -1});
+        const products = await Product.find({
+            grade: { $regex: new RegExp(req.params.grd, 'i') },
+        }).sort({ dateCreated: -1 });
         res.status(400).render('overview', {
             title: 'All Products',
             products,
@@ -100,8 +135,6 @@ exports.getOverviewGrade = async (req, res, next) => {
         //         products,
         //     });
         // }
-
-
     } catch (err) {
         next(new AppError('Unable to GET product info-> ' + err, 400));
     }
@@ -110,7 +143,7 @@ exports.getOverviewGrade = async (req, res, next) => {
 exports.displaySearch = async (req, res, next) => {
     try {
         // 1. Get all Product data from DB
-        alert('In Final display page')
+        alert('In Final display page');
         // const products = res.locals.products;
         res.status(400).render('overviewSearch', {
             title: 'Search Results Page',
@@ -123,7 +156,7 @@ exports.displaySearch = async (req, res, next) => {
 
 exports.getProduct = async (req, res, next) => {
     try {
-        console.log('Get Product #0 [' + req.params.id  + ']')
+        console.log('Get Product #0 [' + req.params.id + ']');
         const product = await Product.findById(req.params.id);
 
         if (!product) {
@@ -131,14 +164,16 @@ exports.getProduct = async (req, res, next) => {
             console.log('No Product Found - 1');
             console.log(
                 `No Product corresponding to id [${req.params.id}] found`
-                );
-                
-                res.status(404).render('error', {
-                    title: 'Failed',
-                    message: `No Product corresponding to id [${req.params.id}] found`,
-                });
-            } else {
-            console.log('Get Product #1.2 - Product Found [' + product.name + ']');
+            );
+
+            res.status(404).render('error', {
+                title: 'Failed',
+                message: `No Product corresponding to id [${req.params.id}] found`,
+            });
+        } else {
+            console.log(
+                'Get Product #1.2 - Product Found [' + product.name + ']'
+            );
             res.status(400).render('product', {
                 title: product.name,
                 product,
@@ -193,20 +228,19 @@ exports.signUp = async (req, res) => {
     });
 };
 
-
 exports.settingsAddProduct = async (req, res) => {
     console.log('before user details - adding product');
-        res.status(200).render('mySettingsAddProduct', {
-            title: 'My Settings-Add Product',
-        });
+    res.status(200).render('mySettingsAddProduct', {
+        title: 'My Settings-Add Product',
+    });
     console.log('after user details - adding product');
 };
 
 exports.settingsChangePassword = async (req, res) => {
     console.log('before user details - changing password');
-        res.status(200).render('mySettingsChangePassword', {
-            title: 'My Settings-Change Password',
-        });
+    res.status(200).render('mySettingsChangePassword', {
+        title: 'My Settings-Change Password',
+    });
     console.log('after user details - changing password..');
 };
 
@@ -242,14 +276,14 @@ exports.settingsMyStuff = async (req, res) => {
     for (ctr = 0; ctr < userProducts.length; ctr++) {
         console.log(userProducts[ctr]);
     }
-    console.log(res.locals)
+    console.log(res.locals);
     res.status(200).render('mySettingsMyStuff', {
         title: 'My Settings-My Stuff',
         user: res.locals.user,
         // subRoute: req.params.subRoute,
         userProducts: userProducts,
     });
-      console.log('after user details-My Stuff');
+    console.log('after user details-My Stuff');
 };
 
 //Not checking for multiple bids on same item for same vendor, as it does not matter...
@@ -262,12 +296,18 @@ exports.addUserBid = async (req, res, next) => {
         //     req.params.id,
         //     ']'
         // );
-        console.log('trying to add user bid #0 [' + req.params.pid + ']-[' + req.params.uid + ']' );
+        console.log(
+            'trying to add user bid #0 [' +
+                req.params.pid +
+                ']-[' +
+                req.params.uid +
+                ']'
+        );
         // Find product by ID
         const product = await Product.findById(req.params.pid);
-        
+
         // console.log('product-', product);
-        
+
         if (!product) {
             console.log('No Product Found.');
             return res.status(404).json({
@@ -275,8 +315,8 @@ exports.addUserBid = async (req, res, next) => {
                 message: `No Product corresponding to id [${req.params.pid}] found`,
             });
         }
-        
-        console.log('trying to add user bid #1 Product Found' );
+
+        console.log('trying to add user bid #1 Product Found');
         //Add Bid...
         // Fill data from req.user
         // TBD - 'image' can come from user, as filled in form
@@ -289,7 +329,7 @@ exports.addUserBid = async (req, res, next) => {
             image: product.imageCover,
         };
 
-        console.log( {newBid});
+        console.log({ newBid });
         console.log('Adding bid for user-', req.params.uid);
         // console.log(newBid);
 

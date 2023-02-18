@@ -17,13 +17,12 @@ Criterion A:
 =============
 ☐ 1) Forgot Password with email option
 ☐ 2) After user place a bid, email needs to go out to vendor
-☐ 3) Edit product information ???
-☐ 4) Forgot Password with email option
-✘ 5) Sort available vendors by price - cannot be done.... @cancelled (2/17/2023, 6:07:09 PM)
-✔ 6) Search for products @done (2/17/2023, 5:53:26 PM)
-✔ 7) view products by categories(grade,subject,category) @done (2/15/2023, 6:18:51 PM)
-☐ 8) Display all FREE products
-✔ 9) Sort all avalable products by "dateCreated" @done (2/17/2023, 6:03:55 PM)
+✘ 3) Edit product information ??? Cannot be done @cancelled (2/17/2023, 6:10:21 PM)
+✘ 4) Sort available vendors by price - cannot be done.... @cancelled (2/17/2023, 6:07:09 PM)
+✔ 5) Search for products @done (2/17/2023, 5:53:26 PM)
+✔ 6) view products by categories(grade,subject,category) @done (2/15/2023, 6:18:51 PM)
+✔ 7) Display all FREE products @done (2/18/2023, 10:50:16 AM)
+✔ 8) Sort all avalable products by "dateCreated" @done (2/18/2023, 10:59:09 AM)
 
 
 Criterion B:

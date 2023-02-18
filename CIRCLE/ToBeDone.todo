@@ -23,6 +23,8 @@ Criterion A:
 ✔ 6) view products by categories(grade,subject,category) @done (2/15/2023, 6:18:51 PM)
 ✔ 7) Display all FREE products @done (2/18/2023, 10:50:16 AM)
 ✔ 8) Sort all avalable products by "dateCreated" @done (2/18/2023, 10:59:09 AM)
+☐ 9) Remove SOLD field from product detail page. Maybe add cost price and purchase date
+☐ 10)
 
 
 Criterion B:

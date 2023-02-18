@@ -113,4 +113,6 @@ app.all('*', (req, res, next) => {
 // GLobal Error handler...
 app.use(globalErrorHandler);
 
+app.locals.moment = require( 'moment');
+
 module.exports = app;

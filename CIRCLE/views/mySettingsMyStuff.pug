@@ -1,7 +1,10 @@
 extends base
 block content 
     .leftOfPageMenu
-        h2 My Product Listing....
+        h2 My Product Listings
+        - let myName = `${user.name}`
+        - let myEmail = `${user.email}`
+        - let myId = `${user._id}`
         form.meSettingsMyProducts
             - var totalProducts = `${userProducts.length}`
             table 
@@ -10,8 +13,9 @@ block content
                     th Subject
                     th Category
                     th Grade
-                    th ISBN 
-                    th Link 
+                    //- th ISBN 
+                    th Product Link 
+                    th Action 
                 - for( currentProduct = 0; currentProduct < totalProducts; currentProduct++ )
                     - var productName = `${userProducts[currentProduct].name}`
                     - var subject = `${userProducts[currentProduct].subject}`
@@ -24,9 +28,11 @@ block content
                         td #{subject} 
                         td #{category}
                         td #{grade}
-                        td #{ISBN}
+                        //- td #{ISBN}
                         td 
                             a(href= `/products/${id}` ) Product Detail
+                        td 
+                            a(href= `/products/drop/${id}/${myEmail}/${myId}` ) Stop selling this product
             br
             br
     .leftOfPageMenu
@@ -36,18 +42,21 @@ block content
             table 
                 tr
                     th Product Name
+                    th Vendor Name
                     th Subject
                     th Category
                     th Grade
                     th Bid Date 
                 - for( currentBid = 0; currentBid < totalBids; currentBid++ )
                     - var productName = `${user.myBidItems[currentBid].itemName}`
+                    - var vendorName = `${user.myBidItems[currentBid].vendor}`
                     - var subject = `${user.myBidItems[currentBid].subject}`
                     - var category = `${user.myBidItems[currentBid].category}`
                     - var grade = `${user.myBidItems[currentBid].grade}`
                     - var bidDate = `${user.myBidItems[currentBid].bidDate}`
                     tr
                         td #{productName}
+                        td #{vendorName}
                         td #{subject} 
                         td #{category}
                         td #{grade}

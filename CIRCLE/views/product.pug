@@ -23,21 +23,33 @@ block content
                 table 
                     tr
                         th Vendor Name
+                        th Purchase Price
+                        //- th Purchase Date
                         th Selling Price
                         th Product Condition
-                        th Sold??
+                        //- th Available
+                        //- th Available
                         th Click to Bid
                     - for( currentVendor = 0; currentVendor < totalVendors; currentVendor++ )
                         - var vendor = `${product.vendors[currentVendor].vname}`
                         - var vendorEmail = `${product.vendors[currentVendor].vemail}`
+                        - var cp = `${product.vendors[currentVendor].costPrice}`
                         - var sp = `${product.vendors[currentVendor].sellingPrice}`
+                        - var purDate = `${product.vendors[currentVendor].datePurchased})`
                         - var condition = `${product.vendors[currentVendor].condition}`
-                        - var sold = `${product.vendors[currentVendor].sold}`
+                        //- - var sold = `${product.vendors[currentVendor].sold}`
+                        //- if sold
+                        //-     - var available = 'NO'
+                        //- else 
+                        //-     - var available = 'YES'
                         tr
                             td #{vendor} 
+                            td #{cp} 
+                            //- td #{purDate}
                             td #{sp} 
                             td #{condition}
-                            td #{sold}
+                            //- td #{available}
+                            //- td #{sold}
                             td
                                 if !user
                                     a(href= '' ) Login to Bid on this item
@@ -46,7 +58,7 @@ block content
                                         a(href= '' ) Cannot Bid on your own item
                                         - myProduct = true
                                     else
-                                        a(href= `/products/${productId}/${user._id}` ) Bid
+                                        a(href= `/products/${productId}/${user._id}/${vendor}` ) Bid
                                 br
                 if user && !myProduct
                     form.addMeAsVendor

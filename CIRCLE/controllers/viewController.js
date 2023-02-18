@@ -286,6 +286,33 @@ exports.settingsMyStuff = async (req, res) => {
     console.log('after user details-My Stuff');
 };
 
+exports.dropUserBid = async (req, res, next) => {
+    try {
+        console.log('Drop Product Vendor called -[' + req.params.pid + '][' + req.params.email + '][' + req.params.uid + ']');
+
+        const product = await Product.findByIdAndUpdate(req.params.pid, {
+            $pull: { vendors: { vemail: req.params.email } },
+        });
+
+        console.log(product);
+
+        if (!product) {
+            return res.status(201).json({
+                status: 'success',
+                message: 'Product Not found',
+            });
+        } 
+
+        const upatedUser = await User.findById(req.params.uid);
+        // Update res.locals.user so that newly added BD is visible
+        res.locals.user = upatedUser;
+        return next();
+
+    } catch (err) {
+        next(new AppError('Invalid DropVendorProduct Data Sent-> ' + err, 400));
+    }
+};
+
 //Not checking for multiple bids on same item for same vendor, as it does not matter...
 exports.addUserBid = async (req, res, next) => {
     try {
@@ -301,6 +328,8 @@ exports.addUserBid = async (req, res, next) => {
                 req.params.pid +
                 ']-[' +
                 req.params.uid +
+                ']-[' +
+                req.params.vid +
                 ']'
         );
         // Find product by ID
@@ -325,7 +354,7 @@ exports.addUserBid = async (req, res, next) => {
             subject: product.subject,
             category: product.category,
             grade: product.grade,
-            vendor: req.params.name,
+            vendor: req.params.vid,
             image: product.imageCover,
         };
 

@@ -102,7 +102,7 @@ const changePassword = async (name, email, curPass, newPass, newPassConfirm) => 
 
 document.querySelector('.meSettingsChgPasswd').addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('here');
+    alert('here...');
     const curpass = document.getElementById('oldPassword').value;
     const newPass = document.getElementById('newPassword').value;
     const newPassConfirm = document.getElementById('newPasswordConfirm').value;

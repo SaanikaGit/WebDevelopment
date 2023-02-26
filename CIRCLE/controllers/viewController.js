@@ -1,6 +1,7 @@
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
+const sendEmail = require('./../utils/email');
 
 exports.getOverview = async (req, res, next) => {
     try {
@@ -198,6 +199,15 @@ exports.loginForm = async (req, res) => {
     });
 };
 
+exports.resetPasswordForm = async (req, res) => {
+    console.log( 'in reset password['+ req.params.token + ']');
+    // alert( 'in reset password');
+    res.locals.resetToken = req.params.token;
+    res.status(200).render('resetPassword', {
+        title: 'Reset Password',
+    });
+};
+
 exports.logout = async (req, res) => {
     console.log('Deleting cookie');
     res.cookie('jwt', 'logout', {
@@ -369,6 +379,36 @@ exports.addUserBid = async (req, res, next) => {
         const upatedUser = await User.findById(req.params.uid);
         // Update res.locals.user so that newly added BD is visible
         res.locals.user = upatedUser;
+        console.log( 'Bid addded');
+        //send email to vendor.....
+
+        const message = `CIRCLE user ${user.name} is interested in your product ${product.name}\nYou can reach out to the user at [${user.email}]`;
+        // Send email - find vendor email...
+        const vendorDet = await User.findOne({ name: req.params.vid });
+
+        if (!vendorDet) {
+            console.log('No Vendor Found.');
+            return res.status(404).json({
+                status: 'failed',
+                message: `No vendor corresponding to name  [${req.params.vid}] found`,
+            });
+        }
+        console.log({vendorDet})
+        console.log( 'sending email to -[' + vendorDet.email + ']');
+        
+        try {
+            await sendEmail({
+                email: vendorDet.email,
+                subject: `You have a bid on your product [${product.name}]`,
+                message,
+            });
+        } catch (err) {
+            return res.status(500).json({
+                status: 'Error Sending email - try again',
+                message: 'Vendor Product Bid->' + err,
+                stack: err.stack,
+            });
+        }
         return next();
         // // console.log(user);
         // res.status(200).json({

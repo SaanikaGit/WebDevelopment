@@ -22,5 +22,7 @@ router.get('/signUp', viewController.signUp);
 router.get('/meAddProduct', authController.loggedInUserRoute, viewController.settingsAddProduct);
 router.get('/meChangePassword', authController.loggedInUserRoute, viewController.settingsChangePassword);
 router.get('/meMyStuff', authController.loggedInUserRoute, viewController.settingsMyStuff);
+router.get('/resetPassword/:token', viewController.resetPasswordForm);
+
 
 module.exports = router;

@@ -15,7 +15,7 @@ Genral:
 
 Criterion A:
 =============
-☐ 1) Forgot Password with email option
+✔ 1) Forgot Password with email option @done (2/27/2023, 3:39:11 PM)
 ✔ 2) After user place a bid, email needs to go out to vendor @done (2/26/2023, 10:36:32 AM)
 ✘ 3) Edit product information ??? Cannot be done @cancelled (2/17/2023, 6:10:21 PM)
 ✘ 4) Sort available vendors by price - cannot be done.... @cancelled (2/17/2023, 6:07:09 PM)

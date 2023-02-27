@@ -278,9 +278,9 @@ exports.forgotPassword = async (req, res, next) => {
         // Send token to user email
         const resetURL = `${req.protocol}://${req.get(
             'host'
-        )}/api/vi/users/resetPassword/${resetToken}`;
+        )}/resetPassword/${resetToken}`;
 
-        const message = `Forgot password? Submit a request with your new password to the following URL ${resetURL}. Please ignore this email if you did not request a password reset.`;
+        const message = `Forgot yout password?\nYou can reset your password using the following URL ${resetURL}.\nPlease ignore this email if you did not request a password reset.`;
 
         try {
             await sendEmail({
@@ -314,24 +314,31 @@ exports.forgotPassword = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
     try {
+        console.log( 'reset paswd orig - 1[' + req.params.token + ']');
         // 1) get user based off token
         const hashedToken = crypto
-            .createHash('sha256')
-            .update(req.params.token)
-            .digest('hex');
-
+        .createHash('sha256')
+        .update(req.params.token)
+        .digest('hex');
+        
+        console.log( 'reset paswd orig - 2[' + hashedToken + ']');
         // We dont know anything about the user here, not even the email address...
         const user = await User.findOne({ passwordResetToken: hashedToken });
-
-        // console.log( 'Change password for ', user)
-
-        // 2) check if user exists and check if token is still valid
-        if (!user || user.passwordResetExpires.getTime() < Date.now()) {
-            return res.status(404).json({
-                status: 'Invalid Token/User',
-            });
+        
+        if (user) {
+            console.log( 'reset paswd orig - 3');
+            // console.log( 'reset paswd orig - 3.1[' + user.passwordResetExpires.getTime() + ']');
         }
-
+        // console.log( 'Change password for ', user)
+        
+        // // 2) check if user exists and check if token is still valid
+        // if (!user || user.passwordResetExpires.getTime() < Date.now()) {
+        //     return res.status(404).json({
+        //         status: 'Invalid Token/User',
+        //     });
+        // }
+        // console.log( 'reset paswd orig - 4');
+        
         // 3) update password
         user.password = req.body.password;
         user.passwordConfirm = req.body.passwordConfirm;

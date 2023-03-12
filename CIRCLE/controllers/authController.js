@@ -280,7 +280,7 @@ exports.forgotPassword = async (req, res, next) => {
             'host'
         )}/resetPassword/${resetToken}`;
 
-        const message = `Forgot yout password?\nYou can reset your password using the following URL ${resetURL}.\nPlease ignore this email if you did not request a password reset.`;
+        const message = `Forgot yout password?\nYou can reset your password using the following URL ${resetURL}\nPlease ignore this email if you did not request a password reset.`;
 
         try {
             await sendEmail({

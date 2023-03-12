@@ -91,7 +91,7 @@ exports.getOverviewCategory = async (req, res, next) => {
         //     title: 'sampleTable',
         // });
         res.status(400).render('overview', {
-            title: 'All Products',
+            title: 'All-' +  req.params.cat,
             products,
         });
     } catch (err) {
@@ -105,7 +105,7 @@ exports.getOverviewGrade = async (req, res, next) => {
             grade: { $regex: new RegExp(req.params.grd, 'i') },
         }).sort({ dateCreated: -1 });
         res.status(400).render('overview', {
-            title: 'All Products',
+            title: 'All Products-' + req.params.grd,
             products,
         });
 
@@ -227,6 +227,7 @@ exports.logout = async (req, res) => {
             products,
         });
     } catch (err) {
+        console.log(err);
         next(new AppError('Something went wrong in logout', 404));
     }
 };

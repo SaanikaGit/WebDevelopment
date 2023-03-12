@@ -10,7 +10,7 @@ Genral:
 ✔ 8) My Settings - 'my products and bids' page to be coded @done (1/2/2023, 4:13:26 pm)
 ✔ 9) Latest BID getting recorded in DB but not showing on page - maybe we are displaying old cached info @done (2/13/2023, 11:02:28 AM)
 ✔ 10) Check in entire tree into GIT @done (2/14/2023, 3:57:28 PM)
-✔ 11) How can I becoe a vendor of an already listed product - need a link on the PRODUCT detail page... @done (2/13/2023, 1:41:38 PM)
+✔ 11) How can I become a vendor of an already listed product - need a link on the PRODUCT detail page... @done (2/13/2023, 1:41:38 PM)
 ☐ 12)
 
 Criterion A:
@@ -25,7 +25,7 @@ Criterion A:
 ✔ 8) Sort all avalable products by "dateCreated" @done (2/18/2023, 10:59:09 AM)
 ✔ 9) Remove SOLD field from product detail page. Maybe add cost price and purchase date @done (2/18/2023, 7:20:20 PM)
 ✔ 10) Add fnctionality to remove a product bid @done (2/18/2023, 7:20:39 PM)
-☐ 11)
+✔ 11) Page title needs to change when different catogories are selected @done (3/12/2023, 11:18:23 AM)
 
 
 Criterion B:

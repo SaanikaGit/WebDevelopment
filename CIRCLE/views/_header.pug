@@ -25,7 +25,8 @@ header.stickyHeader
             if user
                 .loggedInUser
                     a(href='')
-                        span.formatUser= user.name.split(' ')[0]
+                        //- span.formatUser= user.name.split(' ')[0]
+                        span.formatUser= user.name
                         .dropDownContent
                             ul
                                 li

@@ -211,7 +211,8 @@ exports.resetPasswordForm = async (req, res) => {
 exports.logout = async (req, res) => {
     console.log('Deleting cookie');
     res.cookie('jwt', 'logout', {
-        expires: new Date(Date.now() + 5000),
+        expires: new Date(Date.now() + 10),
+        // expires: new Date(Date.now() + 5000),
         httpOnly: true,
         path: '/',
     });

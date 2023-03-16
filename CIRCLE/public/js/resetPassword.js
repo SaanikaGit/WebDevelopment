@@ -3,7 +3,7 @@
 
 const resetPasswordAxios = async (resetToken, resetPass, resetPassConfirm) => {
     try {
-        alert('calling axios function for reset password ...');
+        // alert('calling axios function for reset password ...');
         // console.log(email, password);
         const res = await axios({
             method: 'PATCH',
@@ -33,13 +33,13 @@ const resetPasswordAxios = async (resetToken, resetPass, resetPassConfirm) => {
 
 document.querySelector('.resetUserPassword').addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('here reset password #0');
+    // alert('here reset password #0');
     const resetPass = document.getElementById('resetPassword').value;
     const resetPassConfirm = document.getElementById(
         'resetPasswordConfirm'
     ).value;
-    alert('passwd [' + resetPass + '][' + resetPassConfirm + ']');
+    // alert('passwd [' + resetPass + '][' + resetPassConfirm + ']');
     const userToken = document.getElementById('userToken').innerHTML;
-    alert('from PUG  token [' + userToken + ']');
+    // alert('from PUG  token [' + userToken + ']');
     resetPasswordAxios(userToken, resetPass, resetPassConfirm);
 });

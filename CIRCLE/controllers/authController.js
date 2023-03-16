@@ -73,7 +73,7 @@ exports.login = async (req, res, next) => {
         if (!email || !password) {
             res.status(400).json({
                 status: 'Email & Password are required',
-                message: 'Invalid Data Sent',
+                message: 'Invalid Data Sent - Email & Password are required',
             });
             return next();
         }
@@ -84,7 +84,7 @@ exports.login = async (req, res, next) => {
         if (!user || !(await user.passowrdMatches(password, user.password))) {
             return res.status(400).json({
                 status: 'Incorrect Email or Password given',
-                message: 'Invalid Data Sent',
+                message: 'Invalid Data Sent- Incorrect Email or Password given',
             });
             // return next();
         }
@@ -92,7 +92,7 @@ exports.login = async (req, res, next) => {
 
         // send JWT
 
-        createTokenSendJwt(user, 200, res);
+        createTokenSendJwt(user, 200, res);ut
         // console.log('in Login - printing RES ');
         // console.log( res);
     } catch (err) {
@@ -183,6 +183,7 @@ exports.validateToken = async (req, res, next) => {
 exports.isLoggedIn = async (req, res, next) => {
     let token = '';
     // grab token from cookie
+    console.log('CHECKING IF USER LOGGED IN...0');
     if (req.cookies.jwt) {
         token = req.cookies.jwt;
 
@@ -193,16 +194,20 @@ exports.isLoggedIn = async (req, res, next) => {
         );
         // console.log('Decoded [', decoded, ']');
 
+        console.log('CHECKING IF USER LOGGED IN...1');
+
         // Check if user still exists...
         const tokenUser = await User.findById(decoded.id);
         if (!tokenUser) {
             return next();
         }
+        console.log('CHECKING IF USER LOGGED IN...2');
 
         // check if user changed password after token was issued
         if (tokenUser.passwordChangedAfterToken(decoded.iat)) {
             return next();
         }
+        console.log('CHECKING IF USER LOGGED IN...3');
 
         // There is a logged in user...
         // RES.LOCALS can be used to store any program variables and they are available in all PUG templates
@@ -211,6 +216,8 @@ exports.isLoggedIn = async (req, res, next) => {
         // console.log(req.user);
         return next();
     }
+    console.log('CHECKING IF USER LOGGED IN...4');
+
     next();
 };
 
@@ -279,7 +286,7 @@ exports.forgotPassword = async (req, res, next) => {
         const resetURL = `${req.protocol}://${req.get(
             'host'
         )}/resetPassword/${resetToken}`;
-
+momg
         const message = `Forgot yout password?\nYou can reset your password using the following URL ${resetURL}\nPlease ignore this email if you did not request a password reset.`;
 
         try {

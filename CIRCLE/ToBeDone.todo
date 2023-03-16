@@ -1,7 +1,7 @@
 Genral:
 =======
 ✔ 1) When adding a new product - current logged in user should be automatically added as a vendor @done (30/1/2023, 12:39:37 pm)
-☐ 2) Error encountered when you logout after JWT expires - need to resolve this....
+☐ 2) Error encountered when you logout after JWT expires - need to resolve this.... CHeamged the JWT expiry time in viewController.logout from 5000 to 10. Seems to be working
 ☐ 3) Need to implement "protect", that is similar to isLoggedIn but gives out specific errors...
 ✔ 4) Make VendorName unique in USER Model @done (20/1/2023, 10:23:47 am)
 ✔ 5) MySettings page craps out if user has no products @done (2/14/2023, 3:58:44 PM)
@@ -26,7 +26,8 @@ Criterion A:
 ✔ 9) Remove SOLD field from product detail page. Maybe add cost price and purchase date @done (2/18/2023, 7:20:20 PM)
 ✔ 10) Add fnctionality to remove a product bid @done (2/18/2023, 7:20:39 PM)
 ✔ 11) Page title needs to change when different catogories are selected @done (3/12/2023, 11:18:23 AM)
-
+✔ 12) Login with incorrect credentials gives incorrect message... @done (3/16/2023, 10:58:06 AM)
+☐ 13)
 
 Criterion B:
 ============

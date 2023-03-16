@@ -4,7 +4,7 @@ const searchProducts = async (searchStr ) => {
     try {
             const loc = '/Search/' + searchStr;
             if ( searchStr) {
-                alert('diverting to [' +loc + ']');
+                // alert('diverting to [' +loc + ']');
                 window.setTimeout(() => {
                     location.assign(loc);
                 }, 1500);
@@ -23,8 +23,8 @@ const searchProducts = async (searchStr ) => {
 
 document.querySelector('.midMainNav').addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('JS - search' );
+    // alert('JS - search' );
     const searchStr = document.getElementById('navSearchStr').value;
-    alert('from PUG Searching for [' + searchStr + ']' );
+    // alert('from PUG Searching for [' + searchStr + ']' );
     searchProducts(searchStr);
 });

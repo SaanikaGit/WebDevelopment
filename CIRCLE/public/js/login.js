@@ -5,7 +5,7 @@
 const sendPasswordResetLink = async (email) => {
     try {
         console.log(email   );
-        alert('password reset #1[' + email + ']');
+        // alert('password reset #1[' + email + ']');
         const res = await axios({
             method: 'POST',
             url: 'http://localhost:4000/api/v1/users/forgotPassword',
@@ -15,7 +15,7 @@ const sendPasswordResetLink = async (email) => {
         });
 
         console.log( 'email sent');
-        alert( 'password reset email sent');
+        // alert( 'password reset email sent');
         console.log(res.data);
 
         if (res.data.status === 'SUCCESS') {

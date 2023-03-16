@@ -33,7 +33,7 @@ const togglePasswd =     async() => {
 
 const changePasswordAxios = async (name, email, curPass, newPass, newPassConfirm) => {
     try {
-        alert( 'calling axios function...')
+        // alert( 'calling axios function...')
         // console.log(email, password);
         const res = await axios({
             method: 'PATCH',
@@ -63,7 +63,7 @@ const changePasswordAxios = async (name, email, curPass, newPass, newPassConfirm
 const changePassword = async (name, email, curPass, newPass, newPassConfirm) => {
     try {
         console.log('updatePassword Called');
-        alert('updatePassword Called');
+        // alert('updatePassword Called');
         // Validate User
         // Done in alildateToken middleware, that is called before current function...
         const user = await User.findById(name).select('+password');
@@ -102,15 +102,15 @@ const changePassword = async (name, email, curPass, newPass, newPassConfirm) => 
 
 document.querySelector('.meSettingsChgPasswd').addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('here...');
+    // alert('here...');
     const curpass = document.getElementById('oldPassword').value;
     const newPass = document.getElementById('newPassword').value;
     const newPassConfirm = document.getElementById('newPasswordConfirm').value;
-    alert('passwd [' + curpass + '][' + newPass + '][' + newPassConfirm + ']');
+    // alert('passwd [' + curpass + '][' + newPass + '][' + newPassConfirm + ']');
     const myName = document.getElementById('myName').innerHTML;
-    alert('from PUG  Name [' + myName + ']' );
+    // alert('from PUG  Name [' + myName + ']' );
     const myEmail = document.getElementById('myEmail').innerHTML;
-    alert('from PUG email [' + myEmail + ']' );
+    // alert('from PUG email [' + myEmail + ']' );
     changePasswordAxios(myName, myEmail, curpass, newPass, newPassConfirm);
 });
 

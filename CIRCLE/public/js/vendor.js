@@ -4,7 +4,7 @@
 const addMeAsVendorForProduct = async (pId, myName, myEmail, condition, cp, purDate, sp ) => {
     try {
         // console.log(email, password);
-        alert('adding product final call... [' + pId + '][' + myName + '][' + myEmail + ']['+ condition + '][' +cp + '][' + purDate + '][' + sp + ']' );
+        // alert('adding product final call... [' + pId + '][' + myName + '][' + myEmail + ']['+ condition + '][' +cp + '][' + purDate + '][' + sp + ']' );
         // alert( 'other data [' + res.locals.user.name + ']' );
         const res = await axios({
             method: 'POST',
@@ -43,12 +43,12 @@ document.querySelector('.addMeAsVendor').addEventListener('submit', (e) => {
     const prodCosrPrice = document.getElementById('newProductCostPrice').value;
     const prodPurchaseDate = document.getElementById('newProductPurchaseDate').value;
     const prodSellingPrice = document.getElementById('newProductSellingPrice').value;
-    alert('adding me as product vendor Stage 1' );
+    // alert('adding me as product vendor Stage 1' );
     const prodMyName = document.getElementById('myName').innerHTML;
-    alert('from PUG name [' + prodMyName + ']' );
+    // alert('from PUG name [' + prodMyName + ']' );
     const prodMyEmail = document.getElementById('myEmail').innerHTML;
-    alert('from PUG email [' + prodMyEmail + ']' );
+    // alert('from PUG email [' + prodMyEmail + ']' );
     const prodId = document.getElementById('productId').innerHTML;
-    alert('from PUG PID [' + prodId + ']' );
+    // alert('from PUG PID [' + prodId + ']' );
     addMeAsVendorForProduct(prodId, prodMyName, prodMyEmail, prodCondition, prodCosrPrice, prodPurchaseDate, prodSellingPrice);
 });

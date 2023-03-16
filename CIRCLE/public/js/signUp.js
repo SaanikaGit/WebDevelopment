@@ -3,26 +3,46 @@
 // export const signUp = async (name, email, password, passwordConfirm) => {
 const signUp = async (name, email, password, passwordConfirm) => {
     try {
-        // console.log(email, password);
-        const res = await axios({
-            method: 'POST',
-            url: 'http://localhost:4000/api/v1/users/signup',
-            data: {
-                name,
-                email,
-                password,
-                passwordConfirm,
-            },
-        });
+        if(password === passwordConfirm)
+        {
+            
+            // console.log(email, password);
+            const res = await axios({
+                method: 'POST',
+                url: 'http://localhost:4000/api/v1/users/signup',
+                data: {
+                    name,
+                    email,
+                    password,
+                    passwordConfirm,
+                },
+            });
+            
+            console.log(res);
+            if (res.data.status === 'success') {
+                alert('Logged in Successfully!!');
+                window.setTimeout(() => {
+                    location.assign('/');
+                }, 1500);
+            }
+            else
+            {
+                alert('Error in Signup. Please try again...');
+                window.setTimeout(() => {
+                    location.assign('/');
+                }, 1500);
+            }
+        }
+        else
+        {
+            alert('Error in Signup. Password mismatch. Please try again...');
+            // window.setTimeout(() => {
+            //     location.assign('/');
+            // }, 1500);
 
-        console.log(res);
-        if (res.data.status === 'success') {
-            alert('Logged in Successfully!!');
-            window.setTimeout(() => {
-                location.assign('/');
-            }, 1500);
         }
     } catch (err) {
+        alert('Error in Signup....');
         console.log(err);
         alert(err.response.data.message);
     }
